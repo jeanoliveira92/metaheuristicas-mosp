@@ -6,16 +6,15 @@
                 VICTOR PEREIRA MOREIRA      2016012632
     TEMA:       CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE)'''
 
-from Datasource import dataFile
+from Datasource import dataFile as dt
 'from Algorithms import BinPacking'
 
-fileType = {'square', 'rect'}
-fileNumber = {3,3}
+fileType = {0:"square", 1:"rect"}
+fileNumber = {0:"3",1:"3"}
 
-container, data = dataFile.dataReadMatrix("square", "1")
+container, data = dt.dataReadMatrix( fileType[1], str(fileNumber[0]) )
 
 print(data)
 print(container)
 
-'bins = BinPacking.BinPacking(data, container)'
-'print(bins)'
+dt.dataWrite(fileType[1], str(fileNumber[0]), container, data)

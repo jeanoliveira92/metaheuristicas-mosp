@@ -1,29 +1,25 @@
 
 import numpy as np
 
-' RETORNA A MATRIZ DE VALROES '
+'RETORNA O CABEÇALHO E A MATRIZ DE VALROES'
 def dataReadMatrix(name, id):
     fileName = "Datasource/rectsandsquares/" + name + id + ".txt"
 
     with open(fileName, 'rb') as file:
-        'PEGA A PRIMEIRA LINHA DO ARQUIVO'
         container = [float(field) for field in file.readline().split()]
 
-        'PEGA O VALOR RESPECTIVO A QUATIDADE DE ITENS DO ARQUIVO'
-        nrows = container[0]
-
-        'REMOVE A PRIMEIRA LINHA DO VETOR REFERENTE AS INFORMCÕES DO ARQUIVO'
         container.pop(0)
 
-        'CRIA A MATRIZ DE DADOS USANDO O ARQUIVO DE DADOS'
-        data = np.genfromtxt(file, dtype="float", max_rows = nrows)
+        'data = [ [ float(j) for j in i.split() ] for i in file]'
+        data = [[float(j)*100 for j in i.split()] for i in file]
 
-    'RETORNA O CABEÇALHO E A MATRIZ DE DADOS'
-    return container, data
+        return container, data
 
 ' REALIZA A ESCRITA DOS ARQUIVOS EM ARQUIVO - NADA AINDA IMPLEMENTADO'
-def dataWrite(nome, id):
-    file = open('Datasource/' + nome + id +'.txt', 'a+')
-    file.writelines('Resultado' + '\n')
+def dataWrite(nome, id, container, data):
+    file = open('Datasource/' + nome + id +'_altered.txt', 'a+')
+    [file.writelines(str("%.2f" %i)) for i in container]
+    file.writelines("\n")
+    [[[file.writelines(str("%.2f" %j) + ";") for j in i],file.writelines("\n")] for i in data]
     file.close()
     print('Write')
