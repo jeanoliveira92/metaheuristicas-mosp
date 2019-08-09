@@ -6,15 +6,22 @@
                 VICTOR PEREIRA MOREIRA      2016012632
     TEMA:       CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE)'''
 
+import sys
 from Datasource import dataFile as dt
-'from Algorithms import BinPacking'
 
+'APENAS PARA ORGANIZAÇÂO'
 fileType = {0:"square", 1:"rect"}
-fileNumber = {0:"3",1:"3"}
 
-container, data = dt.dataReadMatrix( fileType[1], str(fileNumber[0]) )
+'CHAMADA EXTERNA'
+if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        print("Sem dados de entrada. Saindo....")
+        exit(1)
+    Type    = fileType[int(sys.argv[1])]
+    number  =  str(sys.argv[2])
 
-print(data)
-print(container)
+'REALIZA A LEITURA DO ARQUIVO'
+container, data = dt.dataReadMatrix( Type, number )
 
-dt.dataWrite(fileType[1], str(fileNumber[0]), container, data)
+'REALIZA A ESCRITA DO ARQUIVO MODIFICADO'
+dt.dataWrite(Type, number, container, data)
