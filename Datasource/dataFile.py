@@ -1,6 +1,7 @@
 
-import numpy as np
 import os
+from Model import geometricForm as gf
+from Model import geometricCircle as gc
 
 'RETORNA O CABEÇALHO E A MATRIZ DE VALROES'
 def dataReadMatrix(name, id):
@@ -8,16 +9,16 @@ def dataReadMatrix(name, id):
 
     try:
         with open(fileName, 'rb') as file:
-            container = [float(field) for field in file.readline().split()]
+            container = [gc.geometricCircle(radius= float(i)) for i in file.readline().split()]
             container.pop(0)
 
-            if(name == "rect"):
-                data = [[float(j) for j in i.split()] for i in file]
             if(name == "square"):
-                data = [[float(i), float(i)] for i in file]
+                data = [gf.geometricForm(x=float(i), y=float(i)) for i in file]
+
+            if (name == "rect"):
+                data = [ gf.geometricForm(x=float(i.split()[0]), y=float(i.split()[1])) for i in file]
     except:
         print("\nArquivo inválido!\n")
-        return [0,0]
 
     return container, data
 
@@ -28,11 +29,11 @@ def dataWrite(nome, id, container, data):
     file = open(filename, 'w')
 
     'GRAVA OS VALORES DO CONTAINER'
-    [file.writelines(str("%.2f" %i) + ";") for i in container]
+    [file.writelines(str("%.2f" %i.getRadius()) + ";") for i in container]
     file.writelines("\n")
 
     'GRAVA OS VALORES DAS PEÇAS, SEJA ELA UM RETANGULO OU UM QUADRADO'
-    [[[file.writelines(str("%.2f" %j) + ";") for j in i],file.writelines("\n")] for i in data]
+    [file.writelines(str("%.2f" %i.getX()) + ";" + str("%.2f" %i.getY()) + "\n") for i in data]
 
     'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
     print('\nArquivo salvo!')
@@ -46,14 +47,15 @@ def printMatriz(title, container, data):
 
     'IMPRIME OS CONTAINERS'
     'PARA CADA I EM CONTAINER, ELE FAZ UM CAST PARA FLOAT E DEPOIS PARA STRING'
-    [ print(str(float(i))+ ' ', end = '') for i in container]
+    [ print(str(float(i.radius))+ ' ', end = '') for i in container]
     print("\n")
 
     'IMPRIME OS DADOS'
     'PARA CARA I EM DATA FAZ UM CAST PARA STRING COM 2 CASAS DECIMAIS DO TIPO FLOAT'
     'ESTE É O NOVO FORMATO DE DADOS. TODOS OS QUADRADOS E RETANGULOS POSSUEM ALTURA E LARGURA'
-    [ print( str("%.2f " %i[0]) + str("%.2f " %i[1]) ) for i in data]
-    print("\n")
+    [ print( str("%.2f " %i.x + str("%.2f " %i.y) )) for i in data]
 
 def alterMatriz(alter, data):
-    return [[j*alter for j in i] for i in data]
+    [ [i.setX( (i.getX() * alter) ), i.setY( (i.getY() * alter) )]  for i in data]
+
+    return data

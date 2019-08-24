@@ -69,7 +69,7 @@ elif runType == 1:
                 if select == "2":
                     try:
                         value = input("\nDigite um valor a multiplicar os itens do arquivo: ")
-                        data = dt.alterMatriz(int(value), data)
+                        data = dt.alterMatriz(float(value), data)
                     except:
                         print("\nMultiplicação inválida. Talvez tenha escrito uma letra.")
 
@@ -80,7 +80,6 @@ elif runType == 1:
                 'REALIZA A IMPRESSÃO DO ARQUIVO MODIFICADO'
                 if select == "4":
                     dt.printMatriz('Raio dos containers: ', container, data)
-
             else:
                 print("\nDados ainda não carregados\n")
 
