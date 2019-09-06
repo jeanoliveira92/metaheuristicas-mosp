@@ -8,6 +8,7 @@
 
 import sys
 from Datasource import dataFile as dt
+from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 
 'APENAS PARA ORGANIZAÇÂO'
 fileType = {0:"square", 1:"rect"}
@@ -41,7 +42,7 @@ elif runType == 1:
     'LOOPING INFINITO ATÉ QUE O USUÁRIO SELECIONE PARA SAIR'
     while(1):
         'MENU INFORMATIVO'
-        print("\nSelecione:\n\t1: Ler um arquivo\n\t2: Alterar um arquivo\n\t3: Escrever um arquivo\n\t4: Imprimir um arquivo\n\t0: Saída")
+        print("\nSelecione:\n\t1: Ler um arquivo\n\t2: Alterar um arquivo\n\t3: Escrever um arquivo\n\t4: Imprimir um arquivo\n\t5: Heurística Construtiva\n\t0: Saída")
         select = input(">>>: ")
 
         'FECHAR CASO RECEBA 0'
@@ -51,13 +52,14 @@ elif runType == 1:
         'CASE PARA LEITURA'
         if select == "1":
             try:
-                name = input("\nDigite 0 para Quadrado ou 1 para Retangulo: ")
-                name = fileType[int(name)]
+                # COMENTADO TEMPORARIAMENTE
+                #name = input("\nDigite 0 para Quadrado ou 1 para Retangulo: ")
+                #name = fileType[int(name)]
 
-                id = input("Qual o número do dataset: ")
+                #id = input("Qual o número do dataset: ")
 
                 'REALIZA A LEITURA DO ARQUIVO'
-                container, data = dt.dataReadMatrix(name, id)
+                container, data = dt.dataReadMatrix('square', '1')
 
             except:
                 print("Dataset inválido....")
@@ -80,6 +82,10 @@ elif runType == 1:
                 'REALIZA A IMPRESSÃO DO ARQUIVO MODIFICADO'
                 if select == "4":
                     dt.printMatriz('Raio dos containers: ', container, data)
+
+                if select == "5":
+                    hc.heuristicaConstrutiva(data, container)
+                    #break
             else:
                 print("\nDados ainda não carregados\n")
 

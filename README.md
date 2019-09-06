@@ -6,3 +6,19 @@ Autores:  Jean Carlos de Oliveira 35138
           Victor Pereira Moreira 2016012632;
           
 Problema: Problemas de empacotamentos de formas em recipientes circulares
+
+MODO DE EXECUTAR o ALGORITMO
+
+EXECUTAR O BAT RUN-PROJECT.BAT
+
+OU
+
+PYTHON MAIN.PY X X
+
+SENDO:
+
+    PRIMEIRO X: O TIPO DO ARQUIVO: 0 PARA SQUARE E 1 PARA RECTANGLE
+    SEGUNDO  X: O NUMERO DO ARQUIVO: NO MOMENTO, DISPONÍVEL DE 1 A 3
+
+OU PODE-SE EXECUTAR SEM ENVIAR PARAMETROS, ASSIM, SERÁ APRESENTADO
+UM MENU DE OPÇÕES.
