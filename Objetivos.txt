@@ -1,0 +1,7 @@
+Quando a primeira peca de um
+determinado tipo for produzida, a respectiva pilha e considerada aberta e permanece
+neste estado ate que a ultima peca do mesmo tipo seja produzida, quando ent~ao a pilha
+e considerada fechada, podendo ser removida para outro local para dar continuidade ao
+processo de produc~ao.
+
+uma vez que uma pilha e aberta, so podera ser fechada e movimentada quando toda a demanda de pecas do mesmo tipo tiver sido atendida

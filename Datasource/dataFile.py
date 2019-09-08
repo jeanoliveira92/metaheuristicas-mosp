@@ -1,61 +1,61 @@
-
 import os
-from Model import geometricForm as gf
-from Model import geometricCircle as gc
 
-'RETORNA O CABEÇALHO E A MATRIZ DE VALROES'
-def dataReadMatrix(name, id):
-    fileName = "Datasource\\Datasets\\" + name + id + ".txt"
+# ---------- RETORNA O CABEÇALHO E A MATRIZ DE VALROES  ----------------------------------------------------------------
+def dataRead(filename):
+    fileName = "Datasource/Datasets/" + filename + ".txt"
 
     try:
         with open(fileName, 'rb') as file:
-            container = [gc.geometricCircle(radius= float(i)) for i in file.readline().split()]
-            container.pop(0)
-
-            if(name == "square"):
-                data = [gf.geometricForm(x=float(i), y=float(i)) for i in file]
-
-            if (name == "rect"):
-                data = [ gf.geometricForm(x=float(i.split()[0]), y=float(i.split()[1])) for i in file]
+            # ARMAZENANDO O NUMERO DE PADROES E PEÇAS
+            container = { index:int(i) for index, i in enumerate(file.readline().split())}
+            # ARMAZENANDO OS VALORES DE PADROES X PEÇAS
+            data = {
+                    (index):{
+                       (index2):
+                            int(j) for index2, j in enumerate(i.split())
+                    } for index, i in enumerate(file)
+            }
     except:
-        print("\nArquivo inválido!\n")
+        print("\nArquivo inválido ou inexistente ...\n")
 
     return container, data
 
-' REALIZA A ESCRITA DOS ARQUIVOS EM ARQUIVO - NADA AINDA IMPLEMENTADO'
-def dataWrite(nome, id, container, data):
-    filename = 'Datasource\\' + nome + id +'_altered.txt'
-    'file = open(filename, "a+")'
+# ----------- REALIZA A ESCRITA DOS DADOS EM ARQUIVO -------------------------------------------------------------------
+def dataWrite(filename, container, data):
+    filename = 'Datasource\\' + filename + '_altered.csv'
+    #file = open(filename, "a+")
     file = open(filename, 'w')
 
-    'GRAVA OS VALORES DO CONTAINER'
-    [file.writelines(str("%.2f" %i.getRadius()) + ";") for i in container]
-    file.writelines("\n")
+    #GRAVA OS VALORES DO CABEÇALHO
+    file.writelines(str(container[0]) + ";" + str(container[1]) + "\n")
 
-    'GRAVA OS VALORES DAS PEÇAS, SEJA ELA UM RETANGULO OU UM QUADRADO'
-    [file.writelines(str("%.2f" %i.getX()) + ";" + str("%.2f" %i.getY()) + "\n") for i in data]
+    #GRAVA OS DADOS. TEMP FICTICIO PARA NÃO APRESENTAR ERRO
+    temp =  [
+                [
+                    [
+                        [
+                            file.writelines( str(j) + ";")
+                        ] for j in i.values() ], file.writelines("\n")
+                ] for i in data.values()
+            ]
 
     'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
     print('\nArquivo salvo!')
     print(os.path.abspath(os.curdir) + "/" + filename+"\n")
     file.close()
 
-' REALIZA A IMPRESSÃO DOS DADOS NA TELA '
-def printMatriz(title, container, data):
-    'IMPRIME O TÍTULO'
-    print("\n" + title, end = '')
+# ----------- REALIZA A IMPRESSÃO DOS DADOS NA TELA --------------------------------------------------------------------
+def printMatriz(filename, container, data):
+    #IMPRIME O TÍTULO
+    print("\n Dataset: " + filename + "\n")
 
-    'IMPRIME OS CONTAINERS'
-    'PARA CADA I EM CONTAINER, ELE FAZ UM CAST PARA FLOAT E DEPOIS PARA STRING'
-    [ print(str(float(i.radius))+ ' ', end = '') for i in container]
-    print("\n")
+    #IMPRIME O CABEÇALHO
+    print("NÚMERO DE PADROES: " + str(container[0]) + "\n"
+          "NÚMERO DE PEÇAS: " + str(container[1]) + "\n")
 
-    'IMPRIME OS DADOS'
-    'PARA CARA I EM DATA FAZ UM CAST PARA STRING COM 2 CASAS DECIMAIS DO TIPO FLOAT'
-    'ESTE É O NOVO FORMATO DE DADOS. TODOS OS QUADRADOS E RETANGULOS POSSUEM ALTURA E LARGURA'
-    [ print( str("%.2f " %i.x + str("%.2f " %i.y) )) for i in data]
-
-def alterMatriz(alter, data):
-    [ [i.setX( (i.getX() * alter) ), i.setY( (i.getY() * alter) )]  for i in data]
-
-    return data
+    #IMPRiME OS DADOS. O RETORNO É FICTICIO APENAS PARA NÃO APRESENTAR ERRO.
+    return [
+                [
+                    print(i)
+                ] for i in data.values()
+            ]
