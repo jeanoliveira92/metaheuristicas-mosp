@@ -35,10 +35,9 @@ elif runType == 1:
         select = input("\n\n#### CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE) ####\n\n"
                       "Selecione:\n\t"
                       "1: Ler um arquivo\n\t"
-                      "2: Alterar um arquivo\n\t"
-                      "3: Escrever um arquivo\n\t"
-                      "4: Imprimir um arquivo\n\t"
-                      "5: Heurística Construtiva\n\t"
+                      "2: Escrever um arquivo\n\t"
+                      "3: Imprimir um arquivo\n\t"
+                      "4: Heurística Construtiva\n\t"
                       "0: Sair\n>>>: ")
 
         # CASE 0: ENCERRA O PROGRAMA
@@ -48,7 +47,8 @@ elif runType == 1:
         # CASE 1: LEITURA DO DATASET'
         elif select == "1":
             try:
-                filename = input("Qual nome do dataset: ")
+                #'filename = input("Qual nome do dataset: ")
+                filename = "scoop-A_AP-9.d_3"
                 #'REALIZA A LEITURA DO ARQUIVO'
                 container, data = dt.dataRead(filename)
             except:
@@ -59,16 +59,13 @@ elif runType == 1:
             try:
                 if len(data) >= 0:
                     if select == "2":
-                        print("NÃO ALTERA MAIS")
-
-                    elif select == "3":
                         dt.dataWrite(filename, container, data)
 
-                    elif select == "4":
+                    elif select == "3":
                         dt.printMatriz(filename, container, data)
 
-                    elif select == "5":
-                        hc.heuristicaConstrutiva(container, data)
+                    elif select == "4":
+                        hc.heuristicaConstrutivaEmbaralhar(container, data)
 
             except:
                     input("\nOpção inválida. Dados ainda não carregados. Aperte enter para continuar...")
