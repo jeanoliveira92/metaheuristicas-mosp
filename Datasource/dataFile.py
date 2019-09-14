@@ -1,24 +1,17 @@
 import os
+import numpy as np
 
 # ---------- RETORNA O CABEÇALHO E A MATRIZ DE VALROES  ----------------------------------------------------------------
 def dataRead(filename):
     fileName = "Datasource/Datasets/" + filename + ".txt"
-
     try:
         with open(fileName, 'rb') as file:
-            # ARMAZENANDO O NUMERO DE PADROES E PEÇAS
-            container = { index:int(i) for index, i in enumerate(file.readline().split())}
-            # ARMAZENANDO OS VALORES DE PADROES X PEÇAS
-            data = {
-                    (index):{
-                       (index2):
-                            int(j) for index2, j in enumerate(i.split())
-                    } for index, i in enumerate(file)
-            }
+            nrows, ncols = [ int(n) for n in file.readline().split() ]
+            data = np.genfromtxt(file, dtype="uint32", max_rows=nrows)
     except:
-        print("\nArquivo inválido ou inexistente ...\n")
+        raise ValueError("\n[ERROR]: Arquivo inválido ou inexistente. Aperte enter para continuar ...")
 
-    return container, data
+    return nrows, ncols, data
 
 # ----------- REALIZA A ESCRITA DOS DADOS EM ARQUIVO -------------------------------------------------------------------
 def dataWrite(filename, container, data):

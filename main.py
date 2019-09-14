@@ -23,7 +23,7 @@ if runType == 0:
     filename    = sys.argv[1]
 
     #REALIZA A LEITURA DO ARQUIVO
-    container, data = dt.dataReadMatrix( filename )
+    data = dt.dataReadMatrix( filename )
 
     dt.dataWrite(filename + "fromArgv", container, data)
 
@@ -49,25 +49,28 @@ elif runType == 1:
             try:
                 #'filename = input("Qual nome do dataset: ")
                 filename = "scoop-A_AP-9.d_3"
-                #'REALIZA A LEITURA DO ARQUIVO'
-                container, data = dt.dataRead(filename)
-            except:
-                input("Erro ao carregar os dados. Aperte enter para continuar...")
+                nrows, ncols, data = dt.dataRead(filename)
+            except ValueError as err:
+                input(err)
 
         # ENTRA APENAS SE OS DADOS ESTIVEREM CARREGADOS NA MEMÓRIA
         else:
             try:
                 if len(data) >= 0:
                     if select == "2":
-                        dt.dataWrite(filename, container, data)
+                        False
+                        #dt.dataWrite(filename, container, data)
 
                     elif select == "3":
-                        dt.printMatriz(filename, container, data)
+                        False
+                        #dt.printMatriz(filename, container, data)
 
                     elif select == "4":
-                        hc.heuristicaConstrutivaEmbaralhar(container, data)
+                        LP = hc.embaralhar(data)
+                        teste = hc.PilhasAbertas(LP)
+
 
             except:
-                    input("\nOpção inválida. Dados ainda não carregados. Aperte enter para continuar...")
+                    input("\n[ERROR]: Opção inválida. Dados ainda não carregados. Aperte enter para continuar...")
 
-print("Encerrando...")
+print("Encerrando.. .")
