@@ -1,6 +1,8 @@
 import os
 import numpy as np
 
+global matPaPe
+
 # ---------- RETORNA O CABEÇALHO E A MATRIZ DE VALROES  ----------------------------------------------------------------
 def dataRead(filename):
     fileName = "Datasource/Datasets/" + filename + ".txt"

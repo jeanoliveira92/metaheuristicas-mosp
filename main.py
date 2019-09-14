@@ -8,10 +8,15 @@
     TEMA:       CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE)'''
 
 import sys
+
+from timeCounter import timeCounter
 from Datasource import dataFile as dt
 from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 
 runType = 0
+tc = timeCounter()
+
+print("\n#### CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE) ####\n")
 
 #VERIFICA SE HÁ ARGUMENTOS EXTERNOS
 if __name__ == "__main__":
@@ -22,55 +27,24 @@ if __name__ == "__main__":
 if runType == 0:
     filename    = sys.argv[1]
 
-    #REALIZA A LEITURA DO ARQUIVO
-    data = dt.dataReadMatrix( filename )
-
-    dt.dataWrite(filename + "fromArgv", container, data)
-
 # MODO MANUAL
 elif runType == 1:
-    #LOOPING INFINITO ATÉ QUE O USUÁRIO SELECIONE PARA SAIR
-    while(1):
-        #MENU INFORMATIVO
-        select = input("\n\n#### CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE) ####\n\n"
-                      "Selecione:\n\t"
-                      "1: Ler um arquivo\n\t"
-                      "2: Escrever um arquivo\n\t"
-                      "3: Imprimir um arquivo\n\t"
-                      "4: Heurística Construtiva\n\t"
-                      "0: Sair\n>>>: ")
+    #'filename = input("Qual nome do dataset: ")
+    filename = "scoop-A_AP-9.d_3"
 
-        # CASE 0: ENCERRA O PROGRAMA
-        if select == '0':
-            exit()
+nrows, ncols, data = dt.dataRead(filename)
+dt.matPaPe = data
 
-        # CASE 1: LEITURA DO DATASET'
-        elif select == "1":
-            try:
-                #'filename = input("Qual nome do dataset: ")
-                filename = "scoop-A_AP-9.d_3"
-                nrows, ncols, data = dt.dataRead(filename)
-            except ValueError as err:
-                input(err)
+try:
+    if len(data) >= 0:
+        tc.start()                                  #INICIA O CONTADOR
+        LP = hc.embaralhar(data)                    #RANDOMIZA O VETOR
+        VP = hc.PilhasAbertas(LP)                   #REALIZA A CONTAGEM DAS PILHAS
+        tc.stop()                                   #ENCERRA O CONTADOR
+        print(VP)
+        print(f'\n[INFO]: O tempo total de execução foi: {tc.total:.5f}')
 
-        # ENTRA APENAS SE OS DADOS ESTIVEREM CARREGADOS NA MEMÓRIA
-        else:
-            try:
-                if len(data) >= 0:
-                    if select == "2":
-                        False
-                        #dt.dataWrite(filename, container, data)
+except ValueError as err:
+    print("\n[ERROR]: Opção inválida. Dados ainda não carregados ..." + err)
 
-                    elif select == "3":
-                        False
-                        #dt.printMatriz(filename, container, data)
-
-                    elif select == "4":
-                        LP = hc.embaralhar(data)
-                        teste = hc.PilhasAbertas(LP)
-
-
-            except:
-                    input("\n[ERROR]: Opção inválida. Dados ainda não carregados. Aperte enter para continuar...")
-
-print("Encerrando.. .")
+print("[INFO]: Encerrando.. .")
