@@ -8,13 +8,13 @@
     TEMA:       CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE)'''
 
 import sys
+import time
 
-from timeCounter import timeCounter
 from Datasource import dataFile as dt
 from HeuristicaConstrutiva import heuristicaConstrutiva as hc
+from HeuristicaRefinamento import heuristicaRefinamento as hf
 
 runType = 0
-tc = timeCounter()
 
 print("\n#### CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE) ####\n")
 
@@ -32,17 +32,35 @@ elif runType == 1:
     #'filename = input("Qual nome do dataset: ")
     filename = "scoop-A_AP-9.d_3"
 
-nrows, ncols, data = dt.dataRead(filename)
-dt.matPaPe = data
 
 try:
-    if len(data) >= 0:
-        tc.start()                                  #INICIA O CONTADOR
-        LP = hc.embaralhar(data)                    #RANDOMIZA O VETOR
-        VP = hc.PilhasAbertas(LP)                   #REALIZA A CONTAGEM DAS PILHAS
-        tc.stop()                                   #ENCERRA O CONTADOR
-        print(VP)
-        print(f'\n[INFO]: O tempo total de execução foi: {tc.total:.5f}')
+    dt.dataRead(filename)
+
+    # METODO CONSTRUTIVO
+    timeCounter = time.time()                                          #INICIA O CONTADOR
+    ordemPilhas = hc.embaralhar()                                      #RANDOMIZA O VETOR
+    quantidadePilhas = hc.PilhasAbertas(ordemPilhas)                   #REALIZA A CONTAGEM DAS PILHAS
+    timeCounter = time.time() - timeCounter                            #ENCERRA O CONTADOR
+
+    #IMPRESSÃO DO MODO CONSTRUTIVO
+    print("\nCONSTRUTIVO\nResultado do método aleatório:\nOrdem das pilhas:\n")
+    print(ordemPilhas)
+    print("\nQuantidade de pilhas abertas")
+    print(quantidadePilhas)
+    print(f'\n[INFO]: O tempo total de execução foi: {timeCounter:f}')
+
+    #METODO REFINAMENTO
+    timeCounter = time.time()
+    ordemPilhasNovo, quantidadePilhasNovo = hf.DescidaRandomica(quantidadePilhas)
+    timeCounter = time.time() - timeCounter
+
+    #IMPRESSÃO DO MODO REFINAMENTO
+    print("\nREFINAMENTO\nResultado do método de refinamento:\nOrdem das pilhas:\n")
+    print(ordemPilhasNovo)
+    print("\nQuantidade de pilhas abertas")
+    print(quantidadePilhasNovo)
+    print(f'\n[INFO]: O tempo total de execução foi: {timeCounter:f}')
+
 
 except ValueError as err:
     print("\n[ERROR]: Opção inválida. Dados ainda não carregados ..." + err)

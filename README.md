@@ -5,7 +5,15 @@ Autores:  Jean Carlos de Oliveira 35138
           Robert Nicolas Mendes 2018012810
           Victor Pereira Moreira 2016012632;
           
-Problema: Problemas de empacotamentos de formas em recipientes circulares
+Problema: Minimização de Pilhas
+*Quando a primeira peca de um determinado tipo for produzida, a respectiva pilha é
+considerada aberta e permanece neste estado até que a última péca do mesmo tipo seja
+produzida, quando então a pilha é considerada fechada, podendo ser removida para outro
+local para dar continuidade ao processo de produção.
+
+* Uma vez que uma pilha é aberta, são podería ser fechada e movimentada quando toda a
+demanda de pécas do mesmo tipo tiver sido atendida
+
 
 MODO DE EXECUTAR o ALGORITMO
 
@@ -13,12 +21,9 @@ EXECUTAR O BAT RUN-PROJECT.BAT
 
 OU
 
-PYTHON MAIN.PY X X
+PYTHON main.py X
 
 SENDO:
 
-    PRIMEIRO X: O TIPO DO ARQUIVO: 0 PARA SQUARE E 1 PARA RECTANGLE
-    SEGUNDO  X: O NUMERO DO ARQUIVO: NO MOMENTO, DISPONÍVEL DE 1 A 3
+    X: Nome do arquivo sem a extenção (.txt)
 
-OU PODE-SE EXECUTAR SEM ENVIAR PARAMETROS, ASSIM, SERÁ APRESENTADO
-UM MENU DE OPÇÕES.

@@ -4,14 +4,12 @@ import numpy as np
 
 from Datasource import dataFile as dt
 
-def embaralhar(data):
-    aux = list(range(0,len(data)-1))
+def embaralhar():
+    aux = list(range(0, dt.nrows))
     random.shuffle(aux)
     return aux
 
 # Função para cálculo do MOSP (Número máximo de Pilhas Abertas)
-# Entrada: Sequencia de Padrões (LP)
-# Saída: MOSP (NMPA)
 def PilhasAbertas(LP):
     if len(LP) > 1:
         Q = dt.matPaPe[LP, :]
