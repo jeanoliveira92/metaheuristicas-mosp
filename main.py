@@ -7,62 +7,67 @@
                 VICTOR PEREIRA MOREIRA      2016012632
     TEMA:       CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE)'''
 
-import sys
 import time
-
 from Datasource import dataFile as dt
 from HeuristicaConstrutiva import heuristicaConstrutiva as hc
-from HeuristicaRefinamento import heuristicaRefinamento as hf
+from HeuristicaRefinamento import heuristicaRefinamento as hr
 
-runType = 0
 
 print("\n#### CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE) ####\n")
 
-#VERIFICA SE HÁ ARGUMENTOS EXTERNOS
-if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        runType = 1
+def main(FILENAME):
+    try:
+        dt.dataRead(FILENAME)
 
-# MODO ARGUMENTO
-if runType == 0:
-    filename    = sys.argv[1]
+        # ------------------------- MÉTODO CONSTRUTIVO ---------------------------------------#
+        #---------------------------- RandonShuffle ------------------------------------------#
 
-# MODO MANUAL
-elif runType == 1:
-    #'filename = input("Qual nome do dataset: ")
-    filename = "scoop-A_AP-9.d_3"
+        print("\nRandonShuffle - Método Construtivo\n")
+        # METODO CONSTRUTIVO
+        timeCounter                    = time.time()                         #INICIA O CONTADOR
+        ordemPilhas, quantidadePilhas  = hc.RandonShuffle()
+        timeCounter                    = time.time() - timeCounter          #ENCERRA O CONTADOR
 
+        #IMPRESSÃO DO MODO CONSTRUTIVO
+        print("Ordem das pilhas:")
+        print(ordemPilhas)
+        print("Quantidade de pilhas abertas")
+        print(quantidadePilhas)
+        print('\n[INFO]: O tempo total de execução foi}')
+        print(timeCounter)
 
-try:
-    dt.dataRead(filename)
+        # ---------------------------- MÉTODO DE REFINAMENTO --------------------------------------#
+        #---------------------------- FirstImprovementMethod --------------------------------------#
 
-    # METODO CONSTRUTIVO
-    timeCounter = time.time()                                          #INICIA O CONTADOR
-    ordemPilhas = hc.embaralhar()                                      #RANDOMIZA O VETOR
-    quantidadePilhas = hc.PilhasAbertas(ordemPilhas)                   #REALIZA A CONTAGEM DAS PILHAS
-    timeCounter = time.time() - timeCounter                            #ENCERRA O CONTADOR
+        print("\nFirstImprovementMethod - Método de Refinamento\n")
+        #METODO REFINAMENTO
+        timeCounter = time.time()
+        FirstImprovementMethodOrdemPilhas, FirstImprovementMethodQtdPilhas = hr.FirstImprovementMethod(quantidadePilhas, ordemPilhas)
+        timeCounter = time.time() - timeCounter
 
-    #IMPRESSÃO DO MODO CONSTRUTIVO
-    print("\nCONSTRUTIVO\nResultado do método aleatório:\nOrdem das pilhas:\n")
-    print(ordemPilhas)
-    print("\nQuantidade de pilhas abertas")
-    print(quantidadePilhas)
-    print(f'\n[INFO]: O tempo total de execução foi: {timeCounter:f}')
+        #IMPRESSÃO DO MODO REFINAMENTO
+        print("Ordem das pilhas:")
+        print(FirstImprovementMethodOrdemPilhas)
+        print("Quantidade de pilhas abertas")
+        print(FirstImprovementMethodQtdPilhas)
+        print('\n[INFO]: O tempo total de execução foi}')
+        print(timeCounter)
 
-    #METODO REFINAMENTO
-    timeCounter = time.time()
-    ordemPilhasNovo, quantidadePilhasNovo = hf.DescidaRandomica(quantidadePilhas)
-    timeCounter = time.time() - timeCounter
+        #---------------------------- RandonUpHillMethod --------------------------------------#
 
-    #IMPRESSÃO DO MODO REFINAMENTO
-    print("\nREFINAMENTO\nResultado do método de refinamento:\nOrdem das pilhas:\n")
-    print(ordemPilhasNovo)
-    print("\nQuantidade de pilhas abertas")
-    print(quantidadePilhasNovo)
-    print(f'\n[INFO]: O tempo total de execução foi: {timeCounter:f}')
+        print("\nRandonUpHillMethod - Método de Refinamento\n")
 
+        timeCounter = time.time()
+        UpHillMethodOrdemPilhas, UpHillMethodQtdPilhas = hr.RandonUpHillMethod(quantidadePilhas, 100)
+        timeCounter = time.time() - timeCounter
 
-except ValueError as err:
-    print("\n[ERROR]: Opção inválida. Dados ainda não carregados ..." + err)
+        #IMPRESSÃO DO MODO REFINAMENTO
+        print("Ordem das pilhas:")
+        print(UpHillMethodOrdemPilhas)
+        print("Quantidade de pilhas abertas")
+        print(UpHillMethodQtdPilhas)
+        print('\n[INFO]: O tempo total de execução foi}')
+        print(timeCounter)
 
-print("[INFO]: Encerrando.. .")
+    except ValueError as err:
+        raise("\n[ERROR]: Opção inválida. Dados ainda não carregados ..." + err)

@@ -17,11 +17,11 @@ demanda de pécas do mesmo tipo tiver sido atendida
 
 MODO DE EXECUTAR o ALGORITMO
 
-EXECUTAR O BAT RUN-PROJECT.BAT
+EXECUTAR O BAT TEST - RUN-PROJECT.BAT
 
 OU
 
-PYTHON main.py X
+PYTHON start.py X
 
 SENDO:
 
