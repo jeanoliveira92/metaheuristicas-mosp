@@ -13,17 +13,3 @@ local para dar continuidade ao processo de produção.
 
 * Uma vez que uma pilha é aberta, são podería ser fechada e movimentada quando toda a
 demanda de pécas do mesmo tipo tiver sido atendida
-
-
-MODO DE EXECUTAR o ALGORITMO
-
-EXECUTAR O BAT TEST - RUN-PROJECT.BAT
-
-OU
-
-PYTHON start.py X
-
-SENDO:
-
-    X: Nome do arquivo sem a extenção (.txt)
-
