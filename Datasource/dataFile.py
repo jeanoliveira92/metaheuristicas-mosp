@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from Datasource import dataFile as df
 
 # ---------- RETORNA O CABEÇALHO E A MATRIZ DE VALROES  ----------------------------------------------------------------
 def dataRead(filename):
@@ -16,27 +17,30 @@ def dataRead(filename):
     return nrows, ncols
 
 # ----------- REALIZA A ESCRITA DOS DADOS EM ARQUIVO -------------------------------------------------------------------
-def dataWrite(filename, container, data):
-    filename = 'Datasource\\' + filename + '_altered.csv'
-    #file = open(filename, "a+")
-    file = open(filename, 'w')
-
-    #GRAVA OS VALORES DO CABEÇALHO
-    file.writelines(str(container[0]) + ";" + str(container[1]) + "\n")
-
-    #GRAVA OS DADOS. TEMP FICTICIO PARA NÃO APRESENTAR ERRO
-    temp =  [
-                [
-                    [
-                        [
-                            file.writelines( str(j) + ";")
-                        ] for j in i.values() ], file.writelines("\n")
-                ] for i in data.values()
-            ]
-
-    'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
+def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
+    #GRAVA PRIMEIRO O ARQUIVO DAS MATRIZES
+    filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.txt'
+    file = open(filename, "a+")
+    # GERAMOS A MATRIZ RESULTADO COM A COLUNA DE PILHAS A DIREITA
+    #matrixPilhas = np.c_[ df.matPaPe[ordem, :], qtdPilhasAbertas]
+    matrixPilhas = np.c_[ data, qtdPilhasAbertas]
+    # SALVA A MATRIZ NO ARQUIVO
+    np.savetxt(file, matrixPilhas , fmt='%s')
+    file.writelines(f"Tempo Total de Execução: {time:.3}ms\n\n")
+    #'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
     print('\nArquivo salvo!')
-    print(os.path.abspath(os.curdir) + "/" + filename+"\n")
+    print(os.path.abspath(os.curdir) + "/" + filename)
+    file.close()
+
+    #ESSA SEGUNDA PARTE GRAVA AS ESTATISTICAS DOS ALGORITMOS EM CSV
+
+    filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.csv'
+    file = open(filename, "a+")
+    soma = np.sum(qtdPilhasAbertas, 0)
+    file.writelines(f"{soma}, {time:.3}\n")
+    #'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
+    print('\nArquivo salvo!')
+    print(os.path.abspath(os.curdir) + "/" + filename)
     file.close()
 
 # ----------- REALIZA A IMPRESSÃO DOS DADOS NA TELA --------------------------------------------------------------------
@@ -50,7 +54,5 @@ def printMatriz(filename, container, data):
 
     #IMPRiME OS DADOS. O RETORNO É FICTICIO APENAS PARA NÃO APRESENTAR ERRO.
     return [
-                [
-                    print(i)
-                ] for i in data.values()
+                [ print(i) ] for i in data.values()
             ]

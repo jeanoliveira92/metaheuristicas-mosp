@@ -10,21 +10,23 @@ def RandonUpHillMethod(QPA, iMax, i = 0):
     resultadoMelhor  = np.sum(QPA, 0)
     ordemMelhor      = []
     QtdPilhasAbertas = []
+    PilhasAbertas    = []
     #FINALIZA QUANDO I FOR MAIOR QUE IMAX
     while(i < iMax):
         i += 1
         ordem     = hc.embaralhar()
-        pilhas    = hc.PilhasAbertas(ordem)
-        resultado = np.sum(pilhas)
+        pilhas, QtdPilhas    = hc.PilhasAbertas(ordem)
+        resultado = np.sum(QtdPilhas)
 
         # SE ENCONTRADO UM VALOR OBJETIVO MELHOR, ARMAZENA O RESULTADO E ZERA O CONTADOR
         if resultado < resultadoMelhor:
             ordemMelhor      = ordem
-            QtdPilhasAbertas = pilhas
+            QtdPilhasAbertas = QtdPilhas
+            PilhasAbertas    = pilhas
             resultadoMelhor  = resultado
             i = 0
 
-    return ordemMelhor, QtdPilhasAbertas
+    return ordemMelhor, PilhasAbertas, QtdPilhasAbertas
 
 #---------------------------- FirstImprovementMethod --------------------------------------#
 
@@ -38,7 +40,7 @@ def FirstImprovementMethod(QPA, OP):
 
     while (resultadoBom >= resultadoMelhor):
         ordemMelhor = hc.trocarPosicao(ordemMelhor)
-        QtdPilhasAbertas = hc.PilhasAbertas(ordemMelhor)
+        PilhasAbertas, QtdPilhasAbertas = hc.PilhasAbertas(ordemMelhor)
         resultadoMelhor = np.sum(QtdPilhasAbertas)
 
-    return ordemMelhor, QtdPilhasAbertas
+    return ordemMelhor, PilhasAbertas, QtdPilhasAbertas

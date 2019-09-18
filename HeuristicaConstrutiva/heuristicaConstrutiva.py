@@ -26,7 +26,9 @@ def PilhasAbertas(LP):
         Q = dt.matPaPe[LP, :]
         Q = np.maximum.accumulate(Q, axis=0) & np.maximum.accumulate(Q[::-1, :], axis=0)[::-1, :]
         pa = np.sum(Q, 1)
-        return pa
+        #return pa
+        return Q, pa
+
        #else: # Para o caso de uma matriz com uma só coluna.
        # Q = ds.matPaPeC[LP, :]
        #pa = [np.sum(Q)]
@@ -34,5 +36,5 @@ def PilhasAbertas(LP):
 
 def RandonShuffle():
     ordemPilhas      = embaralhar()  # RANDOMIZA O VETOR
-    quantidadePilhas = PilhasAbertas(ordemPilhas)  # REALIZA A CONTAGEM DAS PILHAS
-    return ordemPilhas, quantidadePilhas
+    pilhasAbertas, qtdPilhasAbertas = PilhasAbertas(ordemPilhas)  # REALIZA A CONTAGEM DAS PILHAS
+    return ordemPilhas, pilhasAbertas, qtdPilhasAbertas
