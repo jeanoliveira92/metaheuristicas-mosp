@@ -9,6 +9,8 @@ Robert Nicolas Mendes 2018012810
 Victor Pereira Moreira 2016012632
 
           
+          
+          
 Problema: Minimização de Pilhas
 *Quando a primeira peca de um determinado tipo for produzida, a respectiva pilha é
 considerada aberta e permanece neste estado até que a última péca do mesmo tipo seja
