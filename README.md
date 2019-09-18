@@ -2,9 +2,7 @@
 
 Autores:  
 -Jean Carlos de Oliveira 35138 
-
 -Robert Nicolas Mendes 2018012810 
-
 -Victor Pereira Moreira 2016012632
           
 Problema: Minimização de Pilhas
