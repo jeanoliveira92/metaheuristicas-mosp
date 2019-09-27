@@ -8,10 +8,13 @@
     TEMA:       CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE)'''
 
 import time
+import random
 from Datasource import dataFile as df
 from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 from HeuristicaRefinamento import heuristicaRefinamento as hr
 
+# import pyexcel.ext.xlsx # no longer required if you use pyexcel >= 0.2.2
+import glob
 print("\n#### CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE) ####\n")
 
 def main(FILENAME):

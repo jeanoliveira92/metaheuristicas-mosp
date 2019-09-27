@@ -1,7 +1,6 @@
-import os
 import numpy as np
-from Datasource import dataFile as df
-
+import pandas as pd
+import os
 # ---------- RETORNA O CABEÇALHO E A MATRIZ DE VALROES  ----------------------------------------------------------------
 def dataRead(filename):
     fileName = "Datasource/Datasets/" + filename + ".txt"
@@ -35,13 +34,25 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     #ESSA SEGUNDA PARTE GRAVA AS ESTATISTICAS DOS ALGORITMOS EM CSV
 
     filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.csv'
-    file = open(filename, "a+")
-    soma = np.sum(qtdPilhasAbertas, 0)
+
+    # CRIA O CABEÇALHO NA CRIACAO DO ARQUIVO PELA PRIMEIRA VEZ
+    if os.path.isfile(os.path.abspath(os.curdir) + "/" + filename) == False:
+        file = open(filename, "a+")
+        file.writelines("MAIOR PILHA, TEMPO\n")
+    else:
+        file = open(filename, "a+")
+
+    soma = np.max(qtdPilhasAbertas, 0)
     file.writelines(f"{soma}, {time:.3}\n")
     #'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
     print('\nArquivo salvo!')
     print(os.path.abspath(os.curdir) + "/" + filename)
     file.close()
+
+    df_new = pd.read_csv(os.path.abspath(os.curdir) + "/" + filename, encoding='latin-1')
+    writer = pd.ExcelWriter(os.path.abspath(os.curdir) + '/Datasource/Results/' + FILENAME + '_' + method  + '.xlsx')
+    df_new.to_excel(writer, index=False)
+    writer.save()
 
 # ----------- REALIZA A IMPRESSÃO DOS DADOS NA TELA --------------------------------------------------------------------
 def printMatriz(filename, container, data):
@@ -56,3 +67,14 @@ def printMatriz(filename, container, data):
     return [
                 [ print(i) ] for i in data.values()
             ]
+
+def toExcel():
+    for csvfile in glob.glob(os.path.join('.', '*.csv')):
+        workbook = Workbook(csvfile[:-4] + '.xlsx')
+        worksheet = workbook.add_worksheet()
+        with open(csvfile, 'rt', encoding='utf8') as f:
+            reader = csv.reader(f)
+            for r, row in enumerate(reader):
+                for c, col in enumerate(row):
+                    worksheet.write(r, c, col)
+        workbook.close()

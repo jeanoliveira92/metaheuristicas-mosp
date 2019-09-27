@@ -1,4 +1,5 @@
 import random
+import globals as g
 import numpy as np
 from Datasource import dataFile as dt
 
@@ -35,6 +36,7 @@ def PilhasAbertas(LP):
        #return pa'''
 
 def RandonShuffle():
+    random.seed(g.SEED)
     ordemPilhas      = embaralhar()  # RANDOMIZA O VETOR
     pilhasAbertas, qtdPilhasAbertas = PilhasAbertas(ordemPilhas)  # REALIZA A CONTAGEM DAS PILHAS
     return ordemPilhas, pilhasAbertas, qtdPilhasAbertas

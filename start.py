@@ -2,18 +2,22 @@
 
 import sys
 import main
-global FILENAME
+import globals as g
 
 #PARAMETROS DE ARGUMENTO
-#RECE O NOME DO ARQUIVO A SER ABERTO, SENAO, SOLICITA UM
+#RECEBE O NOME DO ARQUIVO A SER ABERTO, SENAO, SOLICITA UM
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         FILENAME = sys.argv[0]
+        QTD = sys.argv[1]
+        g.seedInitialize(sys.argv[2]) #INICIALIZA O SEED
+
     # MODO MANUAL
     else:
         FILENAME = input("[INFO]: Qual nome do dataset: ")
         QTD      = input("[INFO]: Quantas vezes irá rodar: ")
-        #filename = "scoop-A_AP-9.d_3"
+        g.seedInitialize(int(input("[INFO]: Qual é o valor da seed: "))) #INICIALIZA O SEED
+
 try:
     counter = 0
     while(counter <= int(QTD)):
