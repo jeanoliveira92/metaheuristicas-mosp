@@ -1,14 +1,14 @@
 import numpy as np
 import globals as g
-from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 import random
+from HeuristicaConstrutiva import heuristicaConstrutiva as hc
+
 
 #---------------------------- RandonUpHillMethod --------------------------------------#
 
 # QPA  = Quantidade de pilhas abertas do primeiro resultado
 # imax = número máximo de iterações
 def RandonUpHillMethod(QPA, iMax, i = 0):
-    random.seed(g.SEED)
     #INICIALIZANDO AS VARIAVEIS
     resultadoMelhor  = np.sum(QPA, 0)
     ordemMelhor      = []

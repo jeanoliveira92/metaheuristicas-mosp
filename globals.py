@@ -1,5 +1,3 @@
-global SEED
-
-def seedInitialize(valor):
-    global SEED
-    SEED = valor
+global matPaPe
+global nrows
+global ncols

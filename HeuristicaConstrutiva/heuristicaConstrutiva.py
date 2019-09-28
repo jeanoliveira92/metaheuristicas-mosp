@@ -5,16 +5,16 @@ from Datasource import dataFile as dt
 
 # Cria uma lista a partir do embaralhamento dos indices da matriz
 def embaralhar():
-    aux = list(range(0, dt.nrows))
+    aux = list(range(0, g.nrows))
     random.shuffle(aux)
     return aux
 
 # Recebe a lista de posições e alterna a posição entre duas linhas. Vizinho mais próximo.
 def trocarPosicao(LP):
     LPNovo = LP
-    a = random.randint(0, dt.nrows-1)
+    a = random.randint(0, g.nrows-1)
     while True:
-        b = random.randint(0, dt.nrows-1)
+        b = random.randint(0, g.nrows-1)
         if a != b:
             break
 
@@ -24,7 +24,7 @@ def trocarPosicao(LP):
 # Função para cálculo do MOSP (Número máximo de Pilhas Abertas)
 def PilhasAbertas(LP):
     if len(LP) > 1:
-        Q = dt.matPaPe[LP, :]
+        Q = g.matPaPe[LP, :]
         Q = np.maximum.accumulate(Q, axis=0) & np.maximum.accumulate(Q[::-1, :], axis=0)[::-1, :]
         pa = np.sum(Q, 1)
         #return pa
@@ -36,7 +36,6 @@ def PilhasAbertas(LP):
        #return pa'''
 
 def RandonShuffle():
-    random.seed(g.SEED)
     ordemPilhas      = embaralhar()  # RANDOMIZA O VETOR
     pilhasAbertas, qtdPilhasAbertas = PilhasAbertas(ordemPilhas)  # REALIZA A CONTAGEM DAS PILHAS
     return ordemPilhas, pilhasAbertas, qtdPilhasAbertas

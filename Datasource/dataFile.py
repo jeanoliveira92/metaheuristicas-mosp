@@ -1,19 +1,18 @@
 import numpy as np
 import pandas as pd
+import globals as g
 import os
 # ---------- RETORNA O CABEÇALHO E A MATRIZ DE VALROES  ----------------------------------------------------------------
 def dataRead(filename):
     fileName = "Datasource/Datasets/" + filename + ".txt"
     try:
         with open(fileName, 'rb') as file:
-            global matPaPe, nrows, ncols #DEFININDO AS VARIAVEIS COMO DE ACESSO GLOBAL
+             #DEFININDO AS VARIAVEIS COMO DE ACESSO GLOBAL
 
-            nrows, ncols = [ int(n) for n in file.readline().split() ]
-            matPaPe = np.genfromtxt(file, dtype="uint32", max_rows=nrows)
+            g.nrows, g.ncols = [ int(n) for n in file.readline().split() ]
+            g.matPaPe = np.genfromtxt(file, dtype="uint32", max_rows=g.nrows)
     except:
         raise ValueError("\n[ERROR]: Arquivo inválido ou inexistente. Aperte enter para continuar ...")
-
-    return nrows, ncols
 
 # ----------- REALIZA A ESCRITA DOS DADOS EM ARQUIVO -------------------------------------------------------------------
 def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):

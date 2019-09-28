@@ -1,16 +1,33 @@
 import numpy as np
-from HeuristicaRefinamento from HeuristicaRefinamento as hf
+import random
+import globals as g
+from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 
-def ils(QPA, ):
+def perturbacoes(historico, LPNovo):
+    hc.trocarPosicao(LPNovo)
+    print(LPNovo)
 
-    #S0 -> solucção inicial (JA TEMOS A SOLUCAO INICIAL)
+    while (len( [ True for i in historico if i == LPNovo]) > 0):
+        hc.trocarPosicao(LPNovo)
 
-    #s->buscalocal -> usar a first
+    historico.append(list(LPNovo))
 
-    enquanto ( os criterios de parada nao estiverem satisfeito) faça
-        s' -> perturbacao(historico,s)
-        s' -> buscaLocal(s')
-        s  -> criterioAceitacao(s, s'', historico)
-    fim enquanto
 
-    print (QPA)
+def IteratedLocalSearch(LP):
+    LPNovo = LP
+
+    PilhasAbertas, QtdPilhasAbertas = hc.PilhasAbertas(LPNovo)
+    resultadoBom = np.max(QtdPilhasAbertas)
+    resultadoMelhor = resultadoBom
+    historico = []
+
+    while resultadoBom <= resultadoMelhor:
+        perturbacoes(historico, LPNovo)
+
+        PilhasAbertas, QtdPilhasAbertas = hc.PilhasAbertas(LPNovo)
+        resultadoMelhor = np.max(QtdPilhasAbertas)
+        ##s' -> buscaLocal(s')
+        # s  -> criterioAceitacao(s, s'', historico)
+
+    print(historico)
+    return LPNovo, PilhasAbertas, QtdPilhasAbertas
