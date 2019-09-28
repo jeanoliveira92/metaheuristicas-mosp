@@ -24,18 +24,18 @@ if __name__ == "__main__":
 
     # MODO MANUAL
     else:
-        #FILENAME    = input("[INFO]: Qual nome do dataset: ")
-        #QTD         = int(input("[INFO]: Quantas vezes irá rodar: "))
-        #random.seed = int(input("[INFO]: Qual é o valor da seed: ")) #INICIALIZA O SEED
-        #SELECT      = input("[INFO]: Selecione:\n\t0 Para Heuristica Construtiva"+
-            #                                  "\n\t1 Para Heuristica de Refinamento - First Improvement Method" +
-            #                                  "\n\t2 Para Heuristica de Refinamento - Randon UpHill Method" +
-            #                                  "\n\t3 Para Metaheuristica - IteratedLocalSearch")
+        FILENAME    = input("[INFO]: Qual nome do dataset: ")
+        QTD         = int(input("[INFO]: Quantas vezes irá rodar: "))
+        random.seed = int(input("[INFO]: Qual é o valor da seed: ")) #INICIALIZA O SEED
+        SELECT      = input("[INFO]: Selecione:\n\t0 Para Heuristica Construtiva"+
+                                              "\n\t1 Para Heuristica de Refinamento - First Improvement Method" +
+                                              "\n\t2 Para Heuristica de Refinamento - Randon UpHill Method" +
+                                              "\n\t3 Para Metaheuristica - IteratedLocalSearch\n[INFO]: ")
 
-        FILENAME = 'scoop-A_AP-9.d_3'
-        QTD = 1
-        random.seed = 1992
-        SELECT = 3
+        #FILENAME = 'scoop-A_AP-9.d_3'
+        #QTD = 1
+        #random.seed = 1992
+        #SELECT = 3
 
 
 try:
