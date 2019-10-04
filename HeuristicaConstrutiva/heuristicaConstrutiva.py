@@ -29,7 +29,6 @@ def PilhasAbertas(LP):
         pa = np.sum(Q, 1)
         #return pa
         return Q, pa
-
        #else: # Para o caso de uma matriz com uma só coluna.
        # Q = ds.matPaPeC[LP, :]
        #pa = [np.sum(Q)]

@@ -17,9 +17,9 @@ def RandonUpHillMethod(QPA, iMax, i = 0):
     #FINALIZA QUANDO I FOR MAIOR QUE IMAX
     while(i < iMax):
         i += 1
-        ordem     = hc.embaralhar()
+        ordem                = hc.embaralhar()
         pilhas, QtdPilhas    = hc.PilhasAbertas(ordem)
-        resultado = np.max(QtdPilhas)
+        resultado            = np.max(QtdPilhas)
 
         # SE ENCONTRADO UM VALOR OBJETIVO MELHOR, ARMAZENA O RESULTADO E ZERA O CONTADOR
         if resultado < resultadoMelhor:
@@ -36,13 +36,13 @@ def RandonUpHillMethod(QPA, iMax, i = 0):
 # QPA = Quantidade de pilhas abertas do primeiro resultado
 # OP  = é a ordem de pilhas inicialmente
 def FirstImprovementMethod(QPA, OP):
-    random.seed(g.SEED)
     resultadoBom = np.max(QPA, 0)
-    resultadoMelhor = resultadoBom
+    resultadoMelhor = resultadoBom + 1
     ordemMelhor = OP
     QtdPilhasAbertas = []
+    PilhasAbertas = hc.PilhasAbertas(ordemMelhor)
 
-    while (resultadoBom <= resultadoMelhor):
+    while (resultadoBom < resultadoMelhor):
         ordemMelhor = hc.trocarPosicao(ordemMelhor)
         PilhasAbertas, QtdPilhasAbertas = hc.PilhasAbertas(ordemMelhor)
         resultadoMelhor = np.max(QtdPilhasAbertas)

@@ -18,7 +18,8 @@ def dataRead(filename):
 def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     #GRAVA PRIMEIRO O ARQUIVO DAS MATRIZES
     filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.txt'
-    file = open(filename, "a+")
+    #file = open(filename, "a+")
+    file = open(filename, "w+")
     # GERAMOS A MATRIZ RESULTADO COM A COLUNA DE PILHAS A DIREITA
     #matrixPilhas = np.c_[ df.matPaPe[ordem, :], qtdPilhasAbertas]
     matrixPilhas = np.c_[ data, qtdPilhasAbertas]
@@ -26,8 +27,6 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     np.savetxt(file, matrixPilhas , fmt='%s')
     file.writelines(f"Tempo Total de Execução: {time:.3}ms\n\n")
     #'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
-    print('\nArquivo salvo!')
-    print(os.path.abspath(os.curdir) + "/" + filename)
     file.close()
 
     #ESSA SEGUNDA PARTE GRAVA AS ESTATISTICAS DOS ALGORITMOS EM CSV
@@ -39,7 +38,7 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
         file = open(filename, "a+")
         file.writelines("MAIOR PILHA, TEMPO\n")
     else:
-        file = open(filename, "a+")
+        file = open(filename, "w+")
 
     soma = np.max(qtdPilhasAbertas, 0)
     file.writelines(f"{soma}, {time:.3}\n")
@@ -49,7 +48,7 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     file.close()
 
     df_new = pd.read_csv(os.path.abspath(os.curdir) + "/" + filename, encoding='latin-1')
-    writer = pd.ExcelWriter(os.path.abspath(os.curdir) + '/Datasource/Results/' + FILENAME + '_' + method  + '.xlsx')
+    writer = pd.ExcelWriter(os.path.abspath(os.curdir) + '/Datasource/Results/Excel/' + FILENAME + '_' + method  + '.xlsx')
     df_new.to_excel(writer, index=False)
     writer.save()
 

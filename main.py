@@ -69,11 +69,11 @@ def main(FILENAME, SELECT):
             print(UpHillMethodPilhasAbertas)
             print(UpHillMethodQtdPilhas)
 
-        # ---------------------------- IteratedLocalSearch --------------------------------------#
+        # ---------------------------- IteratedLocalSearch FirstImprovementMethod --------------------------------------#
         elif(SELECT == 3):
-            print("[INFO] Iterated Local Search")
+            print("[INFO] Iterated Local Search - First Improvement Method")
             timeCounter = time.time()
-            ilsOrdemPilhas, isPilhasAbertas, ilsQtdPilhas = interator.IteratedLocalSearch(ordemPilhas)
+            ilsOrdemPilhas, isPilhasAbertas, ilsQtdPilhas = interator.IteratedLocalSearch(ordemPilhas, 0)
             timeCounter = time.time() - timeCounter
 
             # IMPRESSÃO DO MODO REFINAMENTO
@@ -84,8 +84,24 @@ def main(FILENAME, SELECT):
             print('\n[INFO]: O tempo total de execução foi')
             print(timeCounter)
 
-            df.dataWrite(FILENAME, 'IteratedLocalSearch', timeCounter, isPilhasAbertas, ilsQtdPilhas)
+            df.dataWrite(FILENAME, 'IteratedLocalSearchFirstImprovement', timeCounter, isPilhasAbertas, ilsQtdPilhas)
+
+        # ---------------------------- IteratedLocalSearch RandonUpHillMethod  --------------------------------------#
+        elif (SELECT == 4):
+            print("[INFO] Iterated Local Search - First Improvement Method")
+            timeCounter = time.time()
+            ilsOrdemPilhas, isPilhasAbertas, ilsQtdPilhas = interator.IteratedLocalSearch(ordemPilhas, 1)
+            timeCounter = time.time() - timeCounter
+
+            # IMPRESSÃO DO MODO REFINAMENTO
+            print("Ordem das pilhas:")
+            print(ilsOrdemPilhas)
+            print("Quantidade de pilhas abertas")
+            print(ilsQtdPilhas)
+            print('\n[INFO]: O tempo total de execução foi')
+            print(timeCounter)
+
+            df.dataWrite(FILENAME, 'IteratedLocalSearchRandonUphill', timeCounter, isPilhasAbertas, ilsQtdPilhas)
 
     except ValueError as err:
-        print("\n[ERROR]: Opção inválida. Dados ainda não carregados ...")
         raise(err)

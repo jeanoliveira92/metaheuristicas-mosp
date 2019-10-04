@@ -27,10 +27,11 @@ if __name__ == "__main__":
         FILENAME    = input("[INFO]: Qual nome do dataset: ")
         QTD         = int(input("[INFO]: Quantas vezes irá rodar: "))
         random.seed = int(input("[INFO]: Qual é o valor da seed: ")) #INICIALIZA O SEED
-        SELECT      = input("[INFO]: Selecione:\n\t0 Para Heuristica Construtiva"+
-                                              "\n\t1 Para Heuristica de Refinamento - First Improvement Method" +
-                                              "\n\t2 Para Heuristica de Refinamento - Randon UpHill Method" +
-                                              "\n\t3 Para Metaheuristica - IteratedLocalSearch\n[INFO]: ")
+        SELECT      = input("[INFO]: Selecione:\n\t0 Heuristica Construtiva"+
+                                              "\n\t1 Heuristica de Refinamento - First Improvement Method" +
+                                              "\n\t2 Heuristica de Refinamento - Randon UpHill Method" +
+                                              "\n\t3 Metaheuristica - Iterated Local Search - First Improvement Method"+
+                                              "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method\n[INFO]: ")
 
         #FILENAME = 'scoop-A_AP-9.d_3'
         #QTD = 1
@@ -40,11 +41,11 @@ if __name__ == "__main__":
 
 try:
     counter = 0
-    while(counter <= int(QTD)):
-        main.main(FILENAME, SELECT)
+    while(counter < int(QTD)):
+        main.main(FILENAME, int(SELECT))
         counter += 1
 
 except ValueError as err:
-    print("\n[ERROR]: Opção inválida. Dados ainda não carregados ... \n[ERROR] " + str(err))
+    print("\n[ERROR] " + str(err))
 
 print("[INFO]: Encerrando.. .")
