@@ -34,11 +34,11 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.csv'
 
     # CRIA O CABEÇALHO NA CRIACAO DO ARQUIVO PELA PRIMEIRA VEZ
-    if os.path.isfile(os.path.abspath(os.curdir) + "/" + filename) == False:
-        file = open(filename, "a+")
-        file.writelines("MAIOR PILHA, TEMPO\n")
-    else:
-        file = open(filename, "w+")
+    #if os.path.isfile(os.path.abspath(os.curdir) + "/" + filename) == False:
+        #file = open(filename, "w+")
+    file.writelines("MAIOR PILHA, TEMPO\n")
+    #else:
+        #file = open(filename, "w+")
 
     soma = np.max(qtdPilhasAbertas, 0)
     file.writelines(f"{soma}, {time:.3}\n")
