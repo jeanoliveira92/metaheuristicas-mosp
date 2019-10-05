@@ -35,7 +35,7 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
 
     # CRIA O CABEÇALHO NA CRIACAO DO ARQUIVO PELA PRIMEIRA VEZ
     #if os.path.isfile(os.path.abspath(os.curdir) + "/" + filename) == False:
-        #file = open(filename, "w+")
+    file = open(filename, "w+")
     file.writelines("MAIOR PILHA, TEMPO\n")
     #else:
         #file = open(filename, "w+")
