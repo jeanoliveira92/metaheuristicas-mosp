@@ -19,7 +19,7 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     #GRAVA PRIMEIRO O ARQUIVO DAS MATRIZES
     filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.txt'
     #file = open(filename, "a+")
-    file = open(filename, "w+")
+    file = open(filename, "a+")
     # GERAMOS A MATRIZ RESULTADO COM A COLUNA DE PILHAS A DIREITA
     #matrixPilhas = np.c_[ df.matPaPe[ordem, :], qtdPilhasAbertas]
     matrixPilhas = np.c_[ data, qtdPilhasAbertas]
@@ -34,11 +34,11 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.csv'
 
     # CRIA O CABEÇALHO NA CRIACAO DO ARQUIVO PELA PRIMEIRA VEZ
-    #if os.path.isfile(os.path.abspath(os.curdir) + "/" + filename) == False:
-    file = open(filename, "w+")
-    file.writelines("MAIOR PILHA, TEMPO\n")
-    #else:
-        #file = open(filename, "w+")
+    if os.path.isfile(os.path.abspath(os.curdir) + "/" + filename) == False:
+        file = open(filename, "w+")
+        file.writelines("MAIOR PILHA, TEMPO\n")
+    else:
+        file = open(filename, "a+")
 
     soma = np.max(qtdPilhasAbertas, 0)
     file.writelines(f"{soma}, {time:.3}\n")
@@ -65,14 +65,3 @@ def printMatriz(filename, container, data):
     return [
                 [ print(i) ] for i in data.values()
             ]
-
-def toExcel():
-    for csvfile in glob.glob(os.path.join('.', '*.csv')):
-        workbook = Workbook(csvfile[:-4] + '.xlsx')
-        worksheet = workbook.add_worksheet()
-        with open(csvfile, 'rt', encoding='utf8') as f:
-            reader = csv.reader(f)
-            for r, row in enumerate(reader):
-                for c, col in enumerate(row):
-                    worksheet.write(r, c, col)
-        workbook.close()

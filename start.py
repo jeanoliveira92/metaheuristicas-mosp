@@ -26,7 +26,7 @@ if __name__ == "__main__":
     else:
         FILENAME    = input("[INFO]: Qual nome do dataset: ")
         QTD         = int(input("[INFO]: Quantas vezes irá rodar: "))
-        random.seed = int(input("[INFO]: Qual é o valor da seed: ")) #INICIALIZA O SEED
+        SEEDVALUE   = int(input("[INFO]: Qual é o valor da seed: "))
         SELECT      = input("[INFO]: Selecione:\n\t0 Heuristica Construtiva"+
                                               "\n\t1 Heuristica de Refinamento - First Improvement Method" +
                                               "\n\t2 Heuristica de Refinamento - Randon UpHill Method" +
@@ -38,9 +38,9 @@ if __name__ == "__main__":
         #random.seed = 1992
         #SELECT = 3
 
-
 try:
     counter = 0
+    random.seed(SEEDVALUE) #INICIALIZA O SEED
     while(counter < int(QTD)):
         main.main(FILENAME, int(SELECT))
         counter += 1
