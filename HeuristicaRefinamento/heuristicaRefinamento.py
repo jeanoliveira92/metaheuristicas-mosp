@@ -10,7 +10,7 @@ from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 # imax = número máximo de iterações
 def RandonUpHillMethod(QPA, iMax, i = 0):
     #INICIALIZANDO AS VARIAVEIS
-    resultadoMelhor  = np.sum(QPA, 0)
+    resultadoMelhor  = np.max(QPA, 0)
     ordemMelhor      = []
     QtdPilhasAbertas = []
     PilhasAbertas    = []
