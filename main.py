@@ -1,107 +1,74 @@
 # -*- coding: cp1252 -*-
 import time
-from Datasource import dataFile as df
+from Datasource            import dataFile              as df
 from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 from HeuristicaRefinamento import heuristicaRefinamento as hr
-from ILS import ils as interator
+from ILS                   import ils                   as ils
+import globals             as g
 
 
 def main(FILENAME, SELECT):
-    print("\n#### CUTTING STOCK (PROBLEMA DE CORTE DE ESTOQUE) ####\n")
+    print("\nMOSP - MINIMIZATION OF OPEN STACKS PROBLEM (PROBLEMA DE MINIMIZAÇÃO DE PILHAS ABERTAS)")
     try:
+        # CARREGA OS DADOS DO ARQUIVO
         df.dataRead(FILENAME)
 
         # ------------------------- MÉTODO CONSTRUTIVO ---------------------------------------#
         #---------------------------- RandonShuffle ------------------------------------------#
+        print("\nRandonShuffle - Método Construtivo")
+        ordemDasPilhas   = list(range(0, g.nrows))           # CRIA A LISTA INICIAL
+        timeCounter      = time.time()                       # INICIA O CONTADOR
+        ordemDasPilhas   = hc.RandonShuffle(ordemDasPilhas)  # METODO CONSTRUTOR
+        timeCounter      = time.time() - timeCounter         # ENCERRA O CONTADOR
+        qtdPilhasAbertas = hc.PilhasAbertas(ordemDasPilhas)  # REALIZA A CONTAGEM DAS PILHAS
+        MatrizDePilhas   = g.matPaPe[ordemDasPilhas, :]      # GERA A MATRIZ A PARTIR DOS INDICES
+        nomeMetodo       = 'RandonShuffle'
 
-        print("\nRandonShuffle - Método Construtivo\n")
-        # METODO CONSTRUTIVO
-        timeCounter                                   = time.time()                        #INICIA O CONTADOR
-        ordemPilhas, PilhasAbertas, qtdPilhasAbertas  = hc.RandonShuffle()
-        timeCounter                                   = time.time() - timeCounter          #ENCERRA O CONTADOR
-
-        #IMPRESSÃO DO MODO CONSTRUTIVO
-        print("Ordem das pilhas:")
-        print(ordemPilhas)
-        print("Quantidade de pilhas abertas")
-        print(qtdPilhasAbertas)
-        print('\n[INFO]: O tempo total de execução foi}')
-        print(timeCounter)
-
-        df.dataWrite(FILENAME, 'RandonShuffle', timeCounter, PilhasAbertas, qtdPilhasAbertas)
+        g.printInformacoes(ordemDasPilhas, qtdPilhasAbertas, timeCounter)                 # IMPRIME AS INFORMAÇÕES
+        df.dataWrite(FILENAME, nomeMetodo, timeCounter, MatrizDePilhas, qtdPilhasAbertas) # GRAVA NO DISCO AS INFORMAÇÕES
 
         # ---------------------------- FirstImprovementMethod --------------------------------------#
         if(SELECT == 1):
             print("\nFirstImprovementMethod - Método de Refinamento\n")
             # METODO REFINAMENTO
-            timeCounter = time.time()
-            FirstImprovementMethodOrdemPilhas, FirstImprovementMethodPilhasAbertas, FirstImprovementMethodQtdPilhas = hr.FirstImprovementMethod(qtdPilhasAbertas, ordemPilhas)
-            timeCounter = time.time() - timeCounter
-
-            # IMPRESSÃO DO MODO REFINAMENTO
-            print("Ordem das pilhas:")
-            print(FirstImprovementMethodOrdemPilhas)
-            print("Quantidade de pilhas abertas")
-            print(FirstImprovementMethodQtdPilhas)
-            print('\n[INFO]: O tempo total de execução foi}')
-            print(timeCounter)
-
-            df.dataWrite(FILENAME, 'FirstImprovementMethod', timeCounter, FirstImprovementMethodPilhasAbertas, FirstImprovementMethodQtdPilhas)
+            timeCounter      = time.time()
+            ordemDasPilhas   = hr.FirstImprovementMethod(ordemDasPilhas)
+            timeCounter      = time.time() - timeCounter
+            nomeMetodo       = 'FirstImprovementMethod'
 
         # ---------------------------- RandonUpHillMethod --------------------------------------#
         elif(SELECT == 2):
-
             print("\nRandonUpHillMethod - Método de Refinamento\n")
 
-            timeCounter = time.time()
-            UpHillMethodOrdemPilhas, UpHillMethodPilhasAbertas, UpHillMethodQtdPilhas = hr.RandonUpHillMethod(qtdPilhasAbertas, 100)
-            timeCounter = time.time() - timeCounter
-
-            # IMPRESSÃO DO MODO REFINAMENTO
-            print("Ordem das pilhas:")
-            print(UpHillMethodOrdemPilhas)
-            print("Quantidade de pilhas abertas")
-            print(UpHillMethodQtdPilhas)
-            print('\n[INFO]: O tempo total de execução foi')
-            print(timeCounter)
-
-            df.dataWrite(FILENAME, 'UpHillMethodOrdemPilhas', timeCounter, UpHillMethodPilhasAbertas, UpHillMethodQtdPilhas)
-            print(UpHillMethodPilhasAbertas)
-            print(UpHillMethodQtdPilhas)
+            timeCounter      = time.time()
+            ordemDasPilhas   = hr.RandonUpHillMethod(ordemDasPilhas, 100)
+            timeCounter      = time.time() - timeCounter
+            nomeMetodo       = 'RandonUpHillMethod'
 
         # ---------------------------- IteratedLocalSearch FirstImprovementMethod --------------------------------------#
         elif(SELECT == 3):
             print("[INFO] Iterated Local Search - First Improvement Method")
-            timeCounter = time.time()
-            ilsOrdemPilhas, isPilhasAbertas, ilsQtdPilhas = interator.IteratedLocalSearch(ordemPilhas, 0)
-            timeCounter = time.time() - timeCounter
-
-            # IMPRESSÃO DO MODO REFINAMENTO
-            print("Ordem das pilhas:")
-            print(ilsOrdemPilhas)
-            print("Quantidade de pilhas abertas")
-            print(ilsQtdPilhas)
-            print('\n[INFO]: O tempo total de execução foi')
-            print(timeCounter)
-
-            df.dataWrite(FILENAME, 'IteratedLocalSearchFirstImprovement', timeCounter, isPilhasAbertas, ilsQtdPilhas)
+            timeCounter     = time.time()
+            ordemDasPilhas  = ils.IteratedLocalSearch(ordemDasPilhas, 'FIM')
+            timeCounter     = time.time() - timeCounter
+            nomeMetodo      = 'IteratedLocalSearchFirstImprovement'
 
         # ---------------------------- IteratedLocalSearch RandonUpHillMethod  --------------------------------------#
         elif (SELECT == 4):
-            print("[INFO] Iterated Local Search - First Improvement Method")
-            timeCounter = time.time()
-            ilsOrdemPilhas, isPilhasAbertas, ilsQtdPilhas = interator.IteratedLocalSearch(ordemPilhas, 1)
-            timeCounter = time.time() - timeCounter
+            print("[INFO] Iterated Local Search - Randon Uphill Method")
+            timeCounter     = time.time()
+            ordemDasPilhas  = ils.IteratedLocalSearch(ordemDasPilhas, 'RUM')
+            timeCounter     = time.time() - timeCounter
+            nomeMetodo      = 'IteratedLocalSearchRandonUphill'
 
-            # IMPRESSÃO DO MODO REFINAMENTO
-            print("Ordem das pilhas:")
-            print(ilsOrdemPilhas)
-            print("Quantidade de pilhas abertas")
-            print(ilsQtdPilhas)
-            print('\n[INFO]: O tempo total de execução foi')
-            print(timeCounter)
+        # --------------------------------------- FIM DOS METODOS ---------------------------------------------------#
+        # IMPRESSÃO E GRAVAÇÃO NO DISCO
+        qtdPilhasAbertas = hc.PilhasAbertas(ordemDasPilhas)  # REALIZA A CONTAGEM DAS PILHAS
+        MatrizDePilhas   = g.matPaPe[ordemDasPilhas, :]      # GERA A MATRIZ A PARTIR DOS INDICES
 
-            df.dataWrite(FILENAME, 'IteratedLocalSearchRandonUphill', timeCounter, isPilhasAbertas, ilsQtdPilhas)
+        g.printInformacoes(ordemDasPilhas, qtdPilhasAbertas, timeCounter)
+
+        df.dataWrite(FILENAME, nomeMetodo, timeCounter, MatrizDePilhas, qtdPilhasAbertas)
 
     except ValueError as err:
         raise(err)

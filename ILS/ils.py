@@ -1,47 +1,35 @@
 import numpy as np
-import random
-import globals as g
 from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 from HeuristicaRefinamento import heuristicaRefinamento as hr
 
-def perturbacoes(historico, LPNovo):
-    hc.trocarPosicao(LPNovo)
-    while (len( [ True for i in historico if i == LPNovo]) > 0):
-        hc.trocarPosicao(LPNovo)
-
-    historico.append(list(LPNovo))
-
+def perturbacoes(historico, ordemDasPilhas):
+    hc.trocarPosicao(ordemDasPilhas)
+    while (len( [ True for i in historico if i == list(ordemDasPilhas)]) > 0):
+        hc.trocarPosicao(ordemDasPilhas)
+    historico.append(list(ordemDasPilhas))
 
 
-def IteratedLocalSearch(LP, Method):
-    LPNovo = LP
-    PilhasAbertas, QtdPilhasAbertas = hc.PilhasAbertas(LPNovo)
-    resultadoBom = np.max(QtdPilhasAbertas)
-    resultadoMelhor = resultadoBom
-    historico = []
-    tentativas = 0
+def IteratedLocalSearch(ordemDasPilhas, Method):
+    resultadoBom        = np.max( hc.PilhasAbertas(ordemDasPilhas) )
+    ordemDasPilhasFinal = ordemDasPilhas
+    historico           = [list(ordemDasPilhas)]
+    i = 0
+    while True:
+        perturbacoes(historico, ordemDasPilhas)
 
-    LPFINAL = LPNovo
-    PILHASABERTASFINAL = PilhasAbertas
-    QTDPILHASFINAL = QtdPilhasAbertas
+        if(Method == 'FIM'):
+            ordemDasPilhas = hr.FirstImprovementMethod(ordemDasPilhas)
+        elif(Method == 'RUM'):
+            ordemDasPilhas = hr.RandonUpHillMethod(ordemDasPilhas, 100)
 
-    while (tentativas < 100):
-        perturbacoes(historico, LPNovo)
-        PilhasAbertas, QtdPilhasAbertas = hc.PilhasAbertas(LPNovo)
-        if(Method == 0):
-            LPNovo, PilhasAbertas, QtdPilhasAbertas = hr.FirstImprovementMethod(QtdPilhasAbertas, LPNovo)
-        else:
-            LPNovo, PilhasAbertas, QtdPilhasAbertas = hr.RandonUpHillMethod(QtdPilhasAbertas, 100)
-        resultadoMelhor = np.max(QtdPilhasAbertas)
+        resultadoMelhor = np.max(hc.PilhasAbertas(ordemDasPilhas))
 
-        if (resultadoBom > resultadoMelhor) and (len( [ True for i in historico if i == LPNovo]) == 0):
+        if resultadoBom > resultadoMelhor:
             resultadoBom = resultadoMelhor
-            LPFINAL = list(LPNovo)
-            PILHASABERTASFINAL = PilhasAbertas
-            QTDPILHASFINAL = QtdPilhasAbertas
-            # s  -> criterioAceitacao(s, s'', historico)
-        else:
-            tentativas = tentativas + 1
-            #print("tentativas " + str(tentativas));
+            ordemDasPilhasFinal = list(ordemDasPilhas)
 
-    return LPFINAL, PILHASABERTASFINAL, QTDPILHASFINAL
+        i = i+1
+        if i >= 50:
+            break
+
+    return ordemDasPilhasFinal
