@@ -1,10 +1,11 @@
 # -*- coding: cp1252 -*-
 import time
-from Datasource            import dataFile              as df
-from HeuristicaConstrutiva import heuristicaConstrutiva as hc
-from HeuristicaRefinamento import heuristicaRefinamento as hr
-from ILS                   import ils                   as ils
-import globals             as g
+from Datasource             import dataFile              as df
+from HeuristicaConstrutiva  import heuristicaConstrutiva as hc
+from HeuristicaRefinamento  import heuristicaRefinamento as hr
+from HeuristicaPopulacional import grasp                 as grasp
+from ILS                    import ils                   as ils
+import globals              as g
 
 
 def main(FILENAME, SELECT):
@@ -61,6 +62,12 @@ def main(FILENAME, SELECT):
             timeCounter     = time.time() - timeCounter
             nomeMetodo      = 'IteratedLocalSearchRandonUphill'
 
+        if(SELECT == 5):
+            print("[INFO] GRASP")
+            timeCounter     = time.time()
+            ordemDasPilhas  = grasp.grasp(ordemDasPilhas)
+            timeCounter     = time.time() - timeCounter
+            nomeMetodo      = 'Grasp'
         # --------------------------------------- FIM DOS METODOS ---------------------------------------------------#
         # IMPRESSÃO E GRAVAÇÃO NO DISCO
         qtdPilhasAbertas = hc.PilhasAbertas(ordemDasPilhas)  # REALIZA A CONTAGEM DAS PILHAS

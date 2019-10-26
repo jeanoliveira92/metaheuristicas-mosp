@@ -20,9 +20,10 @@ def FirstImprovementMethod(ordemDasPilhas):
 
 def RandonUpHillMethod(ordemDasPilhas, iMax):
     resultadoBom        = np.max(hc.PilhasAbertas(ordemDasPilhas))
+    ordemDasPilhasAtual = ordemDasPilhas
     i = 0
     while i < iMax:
-        ordemDasPilhasAtual   = hc.embaralhar(ordemDasPilhas)
+        ordemDasPilhasAtual   = hc.embaralhar(ordemDasPilhasAtual)
         resultadoMelhor       = np.max(hc.PilhasAbertas(ordemDasPilhasAtual))
 
         if  resultadoMelhor < resultadoBom :
