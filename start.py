@@ -27,7 +27,8 @@ if __name__ == "__main__":
                            "\n\t1 Heuristica de Refinamento - First Improvement Method" +
                            "\n\t2 Heuristica de Refinamento - Randon UpHill Method" +
                            "\n\t3 Metaheuristica - Iterated Local Search - First Improvement Method"+
-                           "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method\n[INFO]: "))
+                           "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method: " +
+                           "\n\t5 Metaheuristica - Grasp - First Improvement Method\n[INFO]: "))
 
 try:
     random.seed(SEEDVALUE) #INICIALIZA O SEED

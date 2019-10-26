@@ -49,21 +49,18 @@ def construtivaGrasp(mOrd):
     return ordemPecaPadrao
 
 # HEURISTICA POPULACIONAL GRASP
-def grasp(ordemDasPilhas):
-    resultadoBom = np.max(hc.PilhasAbertas(ordemDasPilhas))
+def grasp():
+    ordemDasPilhas = gerarMatrizOrdenada()
     ordemDasPilhasAtual = ordemDasPilhas
+    resultadoBom = np.max(hc.PilhasAbertas(ordemDasPilhasAtual))
 
-    matOrd = gerarMatrizOrdenada()
-
-    construtivaGrasp(matOrd)
-
-    '''for counter in range(1):
+    for counter in range(100):
         ordemDasPilhasAtual = construtivaGrasp(ordemDasPilhasAtual)
-        #ordemDasPilhasAtual = hr.FirstImprovementMethod(ordemDasPilhasAtual)
+        ordemDasPilhasAtual = hr.FirstImprovementMethod(ordemDasPilhasAtual)
 
         resultadoMelhor       = np.max(hc.PilhasAbertas(ordemDasPilhasAtual))
         if  resultadoMelhor < resultadoBom :
             ordemDasPilhas  = ordemDasPilhasAtual
-            resultadoBom    = resultadoMelhor'''
+            resultadoBom    = resultadoMelhor
 
     return ordemDasPilhas
