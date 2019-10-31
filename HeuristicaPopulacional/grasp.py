@@ -19,44 +19,60 @@ def gerarMatrizOrdenada():
     # REALIZA A ORDENAÇÃO DECRESCENTE DOS VALORES
     matrixOrdenada = matrixOrdenada[matrixOrdenada[:,1].argsort()[::-1]]
     # REMOVE O VETOR DE PESOS E DEIXA APENAS O DE INDICES
-    matrixOrdenada = matrixOrdenada[::,0]
+    #matrixOrdenada = matrixOrdenada[::,0]
     # GERA A NOVA MATRIX ORDENADA
     return matrixOrdenada
 
 
-def construtivaGrasp(mOrd):
+def construtivaGrasp(matrixOrdenada):
+    ALPHA = 0.6
     # GERA OS VALORES DE CORTE SUPERIOR E INFERIOR
-    limiteInferior =  random.randint( math.floor(g.nrows/6), round( 3 * (g.nrows/6))-1)
-    limiteSuperior =  random.randint( math.floor(3 * g.nrows/6)+1, round( 5 * (g.nrows/6)))
+    cMin = np.min(matrixOrdenada[::1], axis=0)[1]
+    cMax = np.max(matrixOrdenada[::1], axis=0)[1]
+    ce = math.floor(cMin + ( ALPHA * (cMax - cMin)))
+    # REMOVE O VETOR DE PESOS E DEIXA APENAS O DE INDICES. ENCONTRA A ULTIMA POSICAO DO ELEMENTO CE NO VETOR PARA CORTAR
+    tempMat = matrixOrdenada[::, 1]
+    limiteSuperior = list(tempMat)[::1].index(ce)
     # VETOR DE INDICE DOS ELEMENTOS PARTICIONADOS
-    indicesDasAmostras  = mOrd[limiteInferior:limiteSuperior]
-    print(limiteInferior)
-    print(limiteSuperior)
+    indicesDasAmostras = matrixOrdenada[limiteSuperior:][::1]
+    # REMOVE RCL DA MATRIZ ORIGINAL
+    matrixOrdenada = matrixOrdenada[:limiteSuperior]
     # EMBARALHA OS ELEMENTOS SELECIONADOS DA MATRIZ
     indicesDasAmostras = random.sample(list(indicesDasAmostras), len(indicesDasAmostras))
-    print(indicesDasAmostras)
-    # CONCATENA O INDECE DAS AMOSTRA COM O RESTANTE INICAL E FINAL DOS VALORES
+    # CONCATENA O RCL COM O RESTANTE INICAL E REMOVE A COLUNA DOS PESOS
+    # FICANDO APENAS OS INDICES DA MATRIX ORIGINAL
     ordemPecaPadrao = np.concatenate((
-         mOrd[0:limiteInferior],
-         indicesDasAmostras,
-         mOrd[limiteSuperior:] ), axis=0)
-
-    print("MATRIZ ORIGINAL: ")
-    print(g.matPaPe[mOrd, :])
-    print("MATRIZ ORDENADA: ")
-    print(g.matPaPe[ordemPecaPadrao, :])
-    #return ordemPecaPadrao
+        indicesDasAmostras,
+        matrixOrdenada
+    ))
+    # REMOVE OS PESOS DAS PILHAS E DEIXA APENAS OS INDICES
+    ordemPecaPadrao = ordemPecaPadrao[::, 0]
     return ordemPecaPadrao
 
-# HEURISTICA POPULACIONAL GRASP
-def grasp():
-    ordemDasPilhas = gerarMatrizOrdenada()
-    ordemDasPilhasAtual = ordemDasPilhas
-    resultadoBom = np.max(hc.PilhasAbertas(ordemDasPilhasAtual))
-
-    for counter in range(100):
-        ordemDasPilhasAtual = construtivaGrasp(ordemDasPilhasAtual)
+# HEURISTICA POPULACIONAL GRASP - FIRST IMPROVEMEMENT
+def graspFim(ordemDasPilhas):
+    resultadoBom = np.max(hc.PilhasAbertas(ordemDasPilhas))
+    # ORDENA A MATRIZ DE FORMA CRESCENTE
+    matOrd = gerarMatrizOrdenada()
+    for counter in range(150):
+        ordemDasPilhasAtual = construtivaGrasp(matOrd)
         ordemDasPilhasAtual = hr.FirstImprovementMethod(ordemDasPilhasAtual)
+
+        resultadoMelhor       = np.max(hc.PilhasAbertas(ordemDasPilhasAtual))
+        if  resultadoMelhor < resultadoBom :
+            ordemDasPilhas  = ordemDasPilhasAtual
+            resultadoBom    = resultadoMelhor
+
+    return ordemDasPilhas
+
+# HEURISTICA POPULACIONAL GRASP - RAMDON UPHILL
+def graspRum(ordemDasPilhas):
+    resultadoBom = np.max(hc.PilhasAbertas(ordemDasPilhas))
+    # ORDENA A MATRIZ DE FORMA CRESCENTE
+    matOrd = gerarMatrizOrdenada()
+    for counter in range(100):
+        ordemDasPilhasAtual = construtivaGrasp(matOrd)
+        ordemDasPilhasAtual = hr.RandonUpHillMethod(list(ordemDasPilhasAtual), 100)
 
         resultadoMelhor       = np.max(hc.PilhasAbertas(ordemDasPilhasAtual))
         if  resultadoMelhor < resultadoBom :
