@@ -21,25 +21,25 @@ if __name__ == "__main__":
 
     # MODO MANUAL
     #'''
-   # else:
-        #FILENAME     = input("[INFO]: Qual nome do dataset: ")
-        #QTDITERACOES = int(input("[INFO]: Quantas vezes irá rodar: "))
-        #SEEDVALUE    = int(input("[INFO]: Qual é o valor da seed: "))
-        #SELECT       = int(input("[INFO]: Selecione:"
-         #                  "\n\t0 Heuristica Construtiva"+
-         #                  "\n\t1 Heuristica de Refinamento - First Improvement Method" +
-         #                  "\n\t2 Heuristica de Refinamento - Randon UpHill Method" +
-         #                  "\n\t3 Metaheuristica - Iterated Local Search - First Improvement Method"+
-         #                  "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method: " +
-         #                  "\n\t5 Metaheuristica - Grasp - First Improvement Method: " +
-         #                  "\n\t6 Metaheuristica - Grasp - Randon UpHill Method\n[INFO]: "))
+    else:
+        FILENAME     = input("[INFO]: Qual nome do dataset: ")
+        QTDITERACOES = int(input("[INFO]: Quantas vezes irá rodar: "))
+        SEEDVALUE    = int(input("[INFO]: Qual é o valor da seed: "))
+        SELECT       = int(input("[INFO]: Selecione:"
+                           "\n\t0 Heuristica Construtiva"+
+                           "\n\t1 Heuristica de Refinamento - First Improvement Method" +
+                           "\n\t2 Heuristica de Refinamento - Randon UpHill Method" +
+                           "\n\t3 Metaheuristica - Iterated Local Search - First Improvement Method"+
+                           "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method: " +
+                           "\n\t5 Metaheuristica - Grasp - First Improvement Method: " +
+                           "\n\t6 Metaheuristica - Grasp - Randon UpHill Method\n[INFO]: "))
     #'''
 
 try:
-    FILENAME = 'scoop-B_REVAL_145'
-    QTDITERACOES = 10
-    SEEDVALUE = 1
-    SELECT = 5
+    #FILENAME = 'scoop-B_REVAL_145'
+    #QTDITERACOES = 10
+    #SEEDVALUE = 1
+    #SELECT = 5
 
     random.seed(SEEDVALUE) #INICIALIZA O SEED
 
