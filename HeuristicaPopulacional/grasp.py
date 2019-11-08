@@ -25,7 +25,7 @@ def gerarMatrizOrdenada():
 
 
 def construtivaGrasp(matrixOrdenada):
-    ALPHA = 0.6
+    ALPHA = random.uniform(0.0, 1.0)
     # GERA OS VALORES DE CORTE SUPERIOR E INFERIOR
     cMin = np.min(matrixOrdenada[::1], axis=0)[1]
     cMax = np.max(matrixOrdenada[::1], axis=0)[1]
@@ -39,14 +39,17 @@ def construtivaGrasp(matrixOrdenada):
     matrixOrdenada = matrixOrdenada[:limiteSuperior]
     # EMBARALHA OS ELEMENTOS SELECIONADOS DA MATRIZ
     indicesDasAmostras = random.sample(list(indicesDasAmostras), len(indicesDasAmostras))
+    # REMOVE OS PESOS DOS INDECES
+    indicesDasAmostras = np.array(indicesDasAmostras)[::, 0]
+    matrixOrdenada = matrixOrdenada[::, 0]
+    # EMBARALHA OS RESTANTES DA RCL
+    np.random.shuffle(matrixOrdenada)
     # CONCATENA O RCL COM O RESTANTE INICAL E REMOVE A COLUNA DOS PESOS
     # FICANDO APENAS OS INDICES DA MATRIX ORIGINAL
     ordemPecaPadrao = np.concatenate((
         indicesDasAmostras,
         matrixOrdenada
     ))
-    # REMOVE OS PESOS DAS PILHAS E DEIXA APENAS OS INDICES
-    ordemPecaPadrao = ordemPecaPadrao[::, 0]
     return ordemPecaPadrao
 
 # HEURISTICA POPULACIONAL GRASP - FIRST IMPROVEMEMENT
@@ -54,7 +57,8 @@ def graspFim(ordemDasPilhas):
     resultadoBom = np.max(hc.PilhasAbertas(ordemDasPilhas))
     # ORDENA A MATRIZ DE FORMA CRESCENTE
     matOrd = gerarMatrizOrdenada()
-    for counter in range(150):
+    i = 0
+    while i < 150:
         ordemDasPilhasAtual = construtivaGrasp(matOrd)
         ordemDasPilhasAtual = hr.FirstImprovementMethod(ordemDasPilhasAtual)
 
@@ -62,6 +66,10 @@ def graspFim(ordemDasPilhas):
         if  resultadoMelhor < resultadoBom :
             ordemDasPilhas  = ordemDasPilhasAtual
             resultadoBom    = resultadoMelhor
+            i = -1
+
+        i = i+1
+        print(i)
 
     return ordemDasPilhas
 
