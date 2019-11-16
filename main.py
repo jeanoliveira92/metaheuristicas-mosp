@@ -1,10 +1,13 @@
 # -*- coding: cp1252 -*-
 import time
-from Datasource             import dataFile              as df
-from HeuristicaConstrutiva  import heuristicaConstrutiva as hc
-from HeuristicaRefinamento  import heuristicaRefinamento as hr
-from HeuristicaPopulacional import grasp                 as grasp
-from ILS                    import ils                   as ils
+from Datasource             import dataFile                as df
+from HeuristicaConstrutiva  import heuristicaConstrutiva   as hc
+from HeuristicaRefinamento  import heuristicaRefinamento   as hr
+from HeuristicaPopulacional import grasp                   as grasp
+from HeuristicaPopulacional import graspPathRelinkForward  as grasprf
+from HeuristicaPopulacional import graspPathRelinkBackward as grasprb
+from HeuristicaPopulacional import graspPathRelinkMixed    as grasprm
+from ILS                    import ils                     as ils
 import globals              as g
 
 
@@ -78,9 +81,23 @@ def main(FILENAME, SELECT):
         elif (SELECT == 7):
             print("[INFO] GRASP PathRelink Forward - First Improvement Method")
             timeCounter = time.time()
-            ordemDasPilhas = grasp.graspPathRelinkForwardFim(ordemDasPilhas)
+            ordemDasPilhas = grasprf.graspPathRelinkForwardFim(ordemDasPilhas)
             timeCounter = time.time() - timeCounter
             nomeMetodo = 'GraspFirstImprovementPathRelinkForward'
+
+        elif (SELECT == 8):
+            print("[INFO] GRASP PathRelink Backward - First Improvement Method")
+            timeCounter = time.time()
+            ordemDasPilhas = grasprb.graspPathRelinkBackwardFim(ordemDasPilhas)
+            timeCounter = time.time() - timeCounter
+            nomeMetodo = 'GraspFirstImprovementPathRelinkBackward'
+
+        elif (SELECT == 9):
+            print("[INFO] GRASP PathRelink Mixed - First Improvement Method")
+            timeCounter = time.time()
+            ordemDasPilhas = grasprm.graspPathRelinkMixedFim(ordemDasPilhas)
+            timeCounter = time.time() - timeCounter
+            nomeMetodo = 'GraspFirstImprovementPathRelinkMixed'
         # --------------------------------------- FIM DOS METODOS ---------------------------------------------------#
         # IMPRESSÃO E GRAVAÇÃO NO DISCO
         qtdPilhasAbertas = hc.PilhasAbertas(ordemDasPilhas)  # REALIZA A CONTAGEM DAS PILHAS

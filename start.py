@@ -11,17 +11,15 @@ import sys, main, random
 
 # PARAMETROS DE ARGUMENTO
 if __name__ == "__main__":
-    #'''
-    '''if len(sys.argv) > 1:
+    '''
+    if len(sys.argv) > 1:
         FILENAME     = sys.argv[0]      # NOME DO ARQUIVO
         QTDITERACOES = int(sys.argv[1]) # QUANTIDADE DE VEZES QUE IRÁ EXECUTAR O METODO
-        SEEDVALUE  = int(sys.argv[2]) # INICIALIZA O SEED
-        SELECT       = int(sys.argv[3]) # ALGORITMO'''
-    #'''
+        SEEDVALUE    = int(sys.argv[2]) # INICIALIZA O SEED
+        SELECT       = int(sys.argv[3]) # ALGORITMO
 
     # MODO MANUAL
-    #'''
-    '''else:
+    else:
         FILENAME     = input("[INFO]: Qual nome do dataset: ")
         QTDITERACOES = int(input("[INFO]: Quantas vezes irá rodar: "))
         SEEDVALUE    = int(input("[INFO]: Qual é o valor da seed: "))
@@ -30,16 +28,20 @@ if __name__ == "__main__":
                            "\n\t1 Heuristica de Refinamento - First Improvement Method" +
                            "\n\t2 Heuristica de Refinamento - Randon UpHill Method" +
                            "\n\t3 Metaheuristica - Iterated Local Search - First Improvement Method"+
-                           "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method: " +
+                           "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method" +
                            "\n\t5 Metaheuristica - Grasp - First Improvement Method: " +
-                           "\n\t6 Metaheuristica - Grasp - Randon UpHill Method\n[INFO]: "))'''
-    #'''
+                           "\n\t6 Metaheuristica - Grasp - Randon UpHill Method" +
+                           "\n\t7 Metaheuristica - Grasp - PathRelinkForward" +
+                           "\n\t8 Metaheuristica - Grasp - PathRelinkBackward" +
+                           "\n\t9 Metaheuristica - Grasp - PathRelinkMixed:\n" +
+                            "[INFO]:"))
+    '''
 
 try:
     FILENAME = 'scoop-A_AP-9.d_3'
     QTDITERACOES = 10
     SEEDVALUE = 1
-    SELECT = 7
+    SELECT = 9
 
     random.seed(SEEDVALUE) #INICIALIZA O SEED
 
