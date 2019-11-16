@@ -62,11 +62,11 @@ def main(FILENAME, SELECT):
             nomeMetodo      = 'IteratedLocalSearchRandonUphill'
 
         elif(SELECT == 5):
-                print("[INFO] GRASP - First Improvement Method")
-                timeCounter     = time.time()
-                ordemDasPilhas  = grasp.graspFim(ordemDasPilhas)
-                timeCounter     = time.time() - timeCounter
-                nomeMetodo      = 'GraspFirstImprovement'
+            print("[INFO] GRASP - First Improvement Method")
+            timeCounter     = time.time()
+            ordemDasPilhas  = grasp.graspFim(ordemDasPilhas)
+            timeCounter     = time.time() - timeCounter
+            nomeMetodo      = 'GraspFirstImprovement'
 
         elif (SELECT == 6):
             print("[INFO] GRASP - Randon Uphill Method")
@@ -74,6 +74,13 @@ def main(FILENAME, SELECT):
             ordemDasPilhas = grasp.graspRum(ordemDasPilhas)
             timeCounter = time.time() - timeCounter
             nomeMetodo = 'GraspRandonUphill'
+
+        elif (SELECT == 7):
+            print("[INFO] GRASP PathRelink Forward - First Improvement Method")
+            timeCounter = time.time()
+            ordemDasPilhas = grasp.graspPathRelinkForwardFim(ordemDasPilhas)
+            timeCounter = time.time() - timeCounter
+            nomeMetodo = 'GraspFirstImprovementPathRelinkForward'
         # --------------------------------------- FIM DOS METODOS ---------------------------------------------------#
         # IMPRESSÃO E GRAVAÇÃO NO DISCO
         qtdPilhasAbertas = hc.PilhasAbertas(ordemDasPilhas)  # REALIZA A CONTAGEM DAS PILHAS

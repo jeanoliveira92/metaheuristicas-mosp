@@ -12,16 +12,16 @@ import sys, main, random
 # PARAMETROS DE ARGUMENTO
 if __name__ == "__main__":
     #'''
-    if len(sys.argv) > 1:
+    '''if len(sys.argv) > 1:
         FILENAME     = sys.argv[0]      # NOME DO ARQUIVO
         QTDITERACOES = int(sys.argv[1]) # QUANTIDADE DE VEZES QUE IRÁ EXECUTAR O METODO
         SEEDVALUE  = int(sys.argv[2]) # INICIALIZA O SEED
-        SELECT       = int(sys.argv[3]) # ALGORITMO
+        SELECT       = int(sys.argv[3]) # ALGORITMO'''
     #'''
 
     # MODO MANUAL
     #'''
-    else:
+    '''else:
         FILENAME     = input("[INFO]: Qual nome do dataset: ")
         QTDITERACOES = int(input("[INFO]: Quantas vezes irá rodar: "))
         SEEDVALUE    = int(input("[INFO]: Qual é o valor da seed: "))
@@ -32,14 +32,14 @@ if __name__ == "__main__":
                            "\n\t3 Metaheuristica - Iterated Local Search - First Improvement Method"+
                            "\n\t4 Metaheuristica - Iterated Local Search - Randon UpHill Method: " +
                            "\n\t5 Metaheuristica - Grasp - First Improvement Method: " +
-                           "\n\t6 Metaheuristica - Grasp - Randon UpHill Method\n[INFO]: "))
+                           "\n\t6 Metaheuristica - Grasp - Randon UpHill Method\n[INFO]: "))'''
     #'''
 
 try:
-    #FILENAME = 'scoop-B_REVAL_145'
-    #QTDITERACOES = 10
-    #SEEDVALUE = 1
-    #SELECT = 5
+    FILENAME = 'scoop-A_AP-9.d_3'
+    QTDITERACOES = 10
+    SEEDVALUE = 1
+    SELECT = 7
 
     random.seed(SEEDVALUE) #INICIALIZA O SEED
 
