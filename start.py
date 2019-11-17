@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
 try:
     FILENAME = 'scoop-A_AP-9.d_3'
-    QTDITERACOES = 10
+    QTDITERACOES = 1
     SEEDVALUE = 1
     SELECT = 9
 

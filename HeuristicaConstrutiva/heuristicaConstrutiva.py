@@ -28,3 +28,26 @@ def PilhasAbertas(LP):
 
 def RandonShuffle(ordemDasPilhas):
     return embaralhar(ordemDasPilhas)  # RANDOMIZA O VETOR
+
+
+''' Função para obtenção do MOSP (Número máximo de Pilhas Abertas)
+
+    Entrada: Sequencia de Padrões (LP)
+
+    Saída: MOSP (NMPA)'''
+
+
+def MOSP(LP):
+    vetor = PilhasAbertas(LP)
+    return np.amax(vetor)  # Obtem a maior pilha do vetor
+
+
+''' Função para cálculo do MMOSP
+    Entrada: Sequencia de Padrões (LP)
+    Saída: MMOSP'''
+def MMOSP(LP):
+    vetor = PilhasAbertas(LP)
+    mosp = np.amax(vetor)  # Obtem a maior pilha do vetor
+    somatorioMOSP = np.sum(vetor)
+    MMOSP = mosp + (somatorioMOSP / (len(vetor) * mosp))
+    return MMOSP
