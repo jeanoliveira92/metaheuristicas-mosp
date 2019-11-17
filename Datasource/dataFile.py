@@ -15,7 +15,7 @@ def dataRead(filename):
         raise ValueError("\n[ERROR]: Arquivo inválido ou inexistente. Aperte enter para continuar ...")
 
 # ----------- REALIZA A ESCRITA DOS DADOS EM ARQUIVO -------------------------------------------------------------------
-def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
+def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas, mmosp):
     #GRAVA PRIMEIRO O ARQUIVO DAS MATRIZES
     filename = 'Datasource\Results\\' + FILENAME + '_' + method + '.txt'
     #file = open(filename, "a+")
@@ -36,12 +36,12 @@ def dataWrite(FILENAME, method, time, data, qtdPilhasAbertas):
     # CRIA O CABEÇALHO NA CRIACAO DO ARQUIVO PELA PRIMEIRA VEZ
     if os.path.isfile(os.path.abspath(os.curdir) + "/" + filename) == False:
         file = open(filename, "w+")
-        file.writelines("MAIOR PILHA, TEMPO\n")
+        file.writelines("MAIOR PILHA, TEMPO, MMOSP\n")
     else:
         file = open(filename, "a+")
 
     soma = np.max(qtdPilhasAbertas, 0)
-    file.writelines(f"{soma}, {time:.3}\n")
+    file.writelines(f"{soma}, {time:.3}, {mmosp}\n")
     #'IMPRIME UMA MENSAGEM E O LOCAL ONDE FOI SALVO O ARQUIVO'
     print('\nArquivo salvo!')
     print(os.path.abspath(os.curdir) + "/" + filename)

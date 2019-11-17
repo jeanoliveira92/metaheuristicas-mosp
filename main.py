@@ -27,8 +27,17 @@ def main(FILENAME, SELECT):
         MatrizDePilhas   = g.matPaPe[ordemDasPilhas, :]      # GERA A MATRIZ A PARTIR DOS INDICES
         nomeMetodo       = 'RandonShuffle'
 
-        g.printInformacoes(ordemDasPilhas, qtdPilhasAbertas, timeCounter)                 # IMPRIME AS INFORMAÇÕES
-        df.dataWrite(FILENAME, nomeMetodo, timeCounter, MatrizDePilhas, qtdPilhasAbertas) # GRAVA NO DISCO AS INFORMAÇÕES
+        print("\n[INFO]: Ordem das pilhas: ", end="")
+        print(ordemDasPilhas)
+        print("\n[INFO]: Quantidade de pilhas abertas: ", end="")
+        print(qtdPilhasAbertas)
+        print('\n[INFO]: O tempo total de execução foi: ', end="")
+        print(timeCounter)
+
+        mmosp = hc.MMOSP(ordemDasPilhas)
+        print("MMOSP: " + str(mmosp))
+
+        df.dataWrite(FILENAME, nomeMetodo, timeCounter, MatrizDePilhas, qtdPilhasAbertas, mmosp) # GRAVA NO DISCO AS INFORMAÇÕES
 
         # ---------------------------- FirstImprovementMethod --------------------------------------#
         if(SELECT == 1):
@@ -103,9 +112,18 @@ def main(FILENAME, SELECT):
         qtdPilhasAbertas = hc.PilhasAbertas(ordemDasPilhas)  # REALIZA A CONTAGEM DAS PILHAS
         MatrizDePilhas   = g.matPaPe[ordemDasPilhas, :]      # GERA A MATRIZ A PARTIR DOS INDICES
 
-        g.printInformacoes(ordemDasPilhas, qtdPilhasAbertas, timeCounter)
 
-        df.dataWrite(FILENAME, nomeMetodo, timeCounter, MatrizDePilhas, qtdPilhasAbertas)
+        print("\n[INFO]: Ordem das pilhas: ", end="")
+        print(ordemDasPilhas)
+        print("\n[INFO]: Quantidade de pilhas abertas: ", end="")
+        print(qtdPilhasAbertas)
+        print('\n[INFO]: O tempo total de execução foi: ', end="")
+        print(timeCounter)
+
+        mmosp = hc.MMOSP(ordemDasPilhas)
+        print("MMOSP: " + str(mmosp))
+
+        df.dataWrite(FILENAME, nomeMetodo, timeCounter, MatrizDePilhas, qtdPilhasAbertas, mmosp)
 
     except ValueError as err:
         raise(err)
