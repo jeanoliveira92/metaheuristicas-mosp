@@ -25,15 +25,22 @@ def gerarMatrizOrdenada():
 
 def construtivaGrasp(matrixOrdenada):
     ALPHA = random.uniform(0.0, 1.0)
+    # REMOVE O VETOR DE PESOS E DEIXA APENAS O DE INDICES. ENCONTRA A ULTIMA POSICAO DO ELEMENTO CE NO VETOR PARA CORTAR
+    tempMat = matrixOrdenada[::, 1]
+
     # GERA OS VALORES DE CORTE SUPERIOR E INFERIOR
     cMin = np.min(matrixOrdenada[::1], axis=0)[1]
     cMax = np.max(matrixOrdenada[::1], axis=0)[1]
     ce = math.floor(cMin + ( ALPHA * (cMax - cMin)))
-    # REMOVE O VETOR DE PESOS E DEIXA APENAS O DE INDICES. ENCONTRA A ULTIMA POSICAO DO ELEMENTO CE NO VETOR PARA CORTAR
-    tempMat = matrixOrdenada[::, 1]
+
+    while(not np.any(tempMat == ce)):
+        cMax = cMax-1
+        ce = math.floor(cMin + (ALPHA * (cMax - cMin)))
+
     limiteSuperior = list(tempMat)[::1].index(ce)
     # VETOR DE INDICE DOS ELEMENTOS PARTICIONADOS
     indicesDasAmostras = matrixOrdenada[limiteSuperior:][::1]
+
     # REMOVE RCL DA MATRIZ ORIGINAL
     matrixOrdenada = matrixOrdenada[:limiteSuperior]
     # EMBARALHA OS ELEMENTOS SELECIONADOS DA MATRIZ
@@ -60,7 +67,6 @@ def graspFim(ordemDasPilhas):
     while i < 150:
         ordemDasPilhasAtual = construtivaGrasp(matOrd)
         ordemDasPilhasAtual = hr.FirstImprovementMethod(ordemDasPilhasAtual)
-
         resultadoMelhor       = np.max(hc.PilhasAbertas(ordemDasPilhasAtual))
         if  resultadoMelhor < resultadoBom :
             ordemDasPilhas  = ordemDasPilhasAtual
