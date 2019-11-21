@@ -6,7 +6,7 @@ from HeuristicaRefinamento import heuristicaRefinamento as hr
 from HeuristicaConstrutiva import heuristicaConstrutiva as hc
 from HeuristicaPopulacional import grasp
 
-# HEURISTICA POPULACIONAL GRASP PATH RELINK BACKWARD - FIRST IMPROVEMEMENT
+# HEURISTICA POPULACIONAL GRASP PATH RELINK MIXED - FIRST IMPROVEMEMENT
 def graspPathRelinkMixedFim(ordemDasPilhas):
     resultadoBom = np.max(hc.PilhasAbertas(ordemDasPilhas))
     # ORDENA A MATRIZ DE FORMA CRESCENTE
@@ -27,7 +27,7 @@ def graspPathRelinkMixedFim(ordemDasPilhas):
         else:
             # ESCOLHER UM VETOR
             orderPilhasCandidata = random.choice(ls)
-            ordemDasPilhasAtual = forwardPathRelink(list(ordemDasPilhasAtual), list(orderPilhasCandidata))
+            ordemDasPilhasAtual = MixedPathRelink(list(ordemDasPilhasAtual), list(orderPilhasCandidata))
 
             if(len(ls) < 20):
                 # VERIFICA REPETICAO
@@ -72,7 +72,7 @@ def graspPathRelinkMixedFim(ordemDasPilhas):
         i = i+1
     return ordemDasPilhas
 
-def forwardPathRelink(OPA, OPC):
+def MixedPathRelink(OPA, OPC):
     piorSolucao = []
     melhorSolucao = []
     melhorCusto = 0
