@@ -1,16 +1,6 @@
-## PROJETO - METAHEURISTICAS
+## Aplicação de Heurísticas e Metaheurísticas para Resolução de Problemas de Minimização de Pilhas Abertas (MOSP)
+Trabalho desenvolvido para a disciplina de Metaheuristicas pra Problemas de Otimização
 
-Autores:
-
-Jean Carlos de Oliveira 35138 
-
-Robert Nicolas Mendes 2018012810
-
-Victor Pereira Moreira 2016012632
-
-          
-          
-          
 Problema: Minimização de Pilhas
 * Quando a primeira peca de um determinado tipo for produzida, a respectiva pilha é
 considerada aberta e permanece neste estado até que a última péca do mesmo tipo seja
@@ -20,6 +10,17 @@ local para dar continuidade ao processo de produção.
 * Uma vez que uma pilha é aberta, são podería ser fechada e movimentada quando toda a
 demanda de pécas do mesmo tipo tiver sido atendida
 
+# Tecnologias
+* Python
+* Biblioteca Numpy
+
+# Autores
+
+Jean Carlos de Oliveira 35138 [(jeanoliveira92)](https://github.com/jeanoliveira92)
+
+Robert Nicolas Mendes 2018012810 [(robertnicolas88)](https://github.com/robertnicolas88)
+
+## Implementação
 Heuristicas Construtiva
 - Randon Shuffle
 
@@ -31,6 +32,8 @@ Heuristicas Populacionais
 HeuristicaRefinamento
 - First Improvement Method
 - Randon UpHill Method
-
-* Pesquisa Local
+- Pesquisa Local
 - Iterated Local Search
+
+## Licença
+Este projeto está licenciado sob a licença MIT - consulte o arquivo [LICENSE.md] (LICENSE.md) para obter detalhes
