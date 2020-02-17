@@ -10,11 +10,11 @@ local para dar continuidade ao processo de produção.
 * Uma vez que uma pilha é aberta, são podería ser fechada e movimentada quando toda a
 demanda de pécas do mesmo tipo tiver sido atendida
 
-# Tecnologias
+## Tecnologias
 * Python
 * Biblioteca Numpy
 
-# Autores
+## Autores
 
 Jean Carlos de Oliveira 35138 [(jeanoliveira92)](https://github.com/jeanoliveira92)
 
