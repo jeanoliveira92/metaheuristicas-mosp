@@ -16,9 +16,9 @@ demanda de pécas do mesmo tipo tiver sido atendida
 
 ## Autores
 
-Jean Carlos de Oliveira 35138 [(jeanoliveira92)](https://github.com/jeanoliveira92)
+Jean Carlos de Oliveira [(jeanoliveira92)](https://github.com/jeanoliveira92)
 
-Robert Nicolas Mendes 2018012810 [(robertnicolas88)](https://github.com/robertnicolas88)
+Robert Nicolas Mendes [(robertnicolas88)](https://github.com/robertnicolas88)
 
 ## Implementação
 Heuristicas Construtiva
